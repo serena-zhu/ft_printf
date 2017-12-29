@@ -6,40 +6,29 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2017/12/27 20:01:30 by yazhu            ###   ########.fr       */
+/*   Updated: 2017/12/28 20:34:28 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> //delete me!!
 
 static int		conversion(t_format *format, va_list ap, int *count)
 {
 	char				c;
-	char				*str;
-	wchar_t				*wstr;
 	int					has_l_mod;
 
 	c = format->conversion;
 	has_l_mod = (ft_strcmp(format->length, "l") == 0);
-	if (((c  == 's' && has_l_mod) || c == 'S'))
-	{
-		*count += ft_wstrlen(wstr = va_arg(ap, wchar_t *));
-		ft_putwstr(wstr);
-	}
+	if ((c == 's' && has_l_mod) || c == 'S')
+		convert_ws(format, ap, count);
 	else if (c == 's')
-	{
-		*count += ft_strlen(str = va_arg(ap, char *));
-		ft_putstr(str);
-	}
-	else if (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'U') 
+		convert_s(format, ap, count, 0);
+	else if (c == 'd' || c == 'D' || c == 'i') 
 		convert_di(format, ap, count);
-	else if (c == 'x' || c == 'X' ||  c == 'o' || c == 'O')
+	else if (c == 'x' || c == 'X' ||  c == 'o' || c == 'O' || c == 'u' || c == 'U')
 		convert_xou(format, ap, count);
-	else if (((c == 'c' && has_l_mod) || c == 'C') && ++(*count))
-		ft_putwchar(va_arg(ap, int));
-	else if (c == 'c' && ++(*count))
-		ft_putchar(va_arg(ap, int));
+	else if (c == 'c' || c == 'C')
+		convert_c(format, ap, count, has_l_mod);
 	else if (c == 'p' || c == '%')
 		convert_p_percent(format, ap, count);
 	else

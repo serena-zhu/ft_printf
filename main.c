@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 19:21:25 by yazhu             #+#    #+#             */
-/*   Updated: 2017/12/27 20:17:39 by yazhu            ###   ########.fr       */
+/*   Updated: 2017/12/28 21:35:35 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,16 @@ int		main(int argc, char **argv)
 //		rtn = ft_printf("%-5%");
 //		rtn = ft_printf("%s\n", "abcg");
 //		rtn = ft_printf("%ls\n", widestring);
-		rtn = ft_printf("%0#5.6X & %-5.6d\n", 68558, -3567);
+//		rtn = ft_printf("%0#5.6X & %-5.6d\n", 68558, -3567);
+//		int n = -42;
+//		rtn = ft_printf("%#x", 0); //4294967296);
+//		rtn =  ft_printf("%5.2s is a string", "this");
+//		rtn = ft_printf("%.2s", NULL);
+//		rtn = ft_printf("@moulitest: %s", NULL);
+//		rtn = ft_printf("%5c", 42);
+//		rtn = ft_printf("%d", 2147483648);
+//		rtn = ft_printf("%u", -1);
+		rtn = ft_printf("%hhd", -129);
 		ft_printf("\nrtn value is: %d\n", rtn);
 
 		printf("expected: ");
@@ -78,7 +87,15 @@ int		main(int argc, char **argv)
 //		rtn = printf("%-5%");
 //		rtn = printf("%s\n", "abcg");
 //		rtn = printf("%ls\n", widestring);
-		rtn = printf("%0#5.6X & %-5.6d\n", 68558, -3567);
+//		rtn = printf("%0#5.6X & %-5.6d\n", 68558, -3567);
+//		rtn = printf("%#x", 0); //4294967296);
+//		rtn = printf("%5.2s is a string", "this");
+//		rtn = printf("%.2s", NULL);
+//		rtn = printf("@moulitest: %s", NULL);
+//		rtn = printf("%5c", 42);
+//		rtn = printf("%d", 2147483648);			
+//		rtn = printf("%u", -1);
+		rtn = printf("%hhd", -129);
 		printf("\nrtn value is: %d\n", rtn);
 	}
 	return (0);
