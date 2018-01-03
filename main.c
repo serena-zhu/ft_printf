@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 19:21:25 by yazhu             #+#    #+#             */
-/*   Updated: 2017/12/28 21:35:35 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/02 22:50:39 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,21 @@ int		main(int argc, char **argv)
 //		rtn = ft_printf("%5c", 42);
 //		rtn = ft_printf("%d", 2147483648);
 //		rtn = ft_printf("%u", -1);
-		rtn = ft_printf("%hhd", -129);
+//		rtn = ft_printf("%d", -2147483648);
+//		rtn = ft_printf("%hhd", -129);
+//		rtn = ft_printf("%lld", 9223372036854775807);
+//		rtn = ft_printf("%zd", -1);
+//		rtn = ft_printf("@moulitest: %#.x %#.0x", 0, 0);
+//		rtn = ft_printf("@moulitest: %#.o %#.0o", 0, 0);		
+//		rtn = ft_printf("%.x", 0);
+//		rtn = ft_printf("%.d", 0);
+//		rtn = ft_printf("%Z");
+//		rtn = ft_printf("%05%");
+//		rtn = ft_printf("%ll-25x", 9223372036854775807);
+//		rtn = ft_printf("%jx", 4294967296);
+//		rtn = ft_printf("%010s is a string", "this");
+//		rtn = ft_printf("%5+d", 42);
+		rtn = ft_printf("%zhd", 4294967296);
 		ft_printf("\nrtn value is: %d\n", rtn);
 
 		printf("expected: ");
@@ -95,8 +109,23 @@ int		main(int argc, char **argv)
 //		rtn = printf("%5c", 42);
 //		rtn = printf("%d", 2147483648);			
 //		rtn = printf("%u", -1);
-		rtn = printf("%hhd", -129);
+//		rtn = printf("%d", -2147483648);
+//		rtn = printf("%hhd", -129);
+//		rtn = printf("%lld", 9223372036854775807);
+//		rtn = printf("%zd", -1);
+//		rtn = printf("@moulitest: %#.x %#.0x", 0, 0);
+//		rtn = printf("%.x", 0);
+//		rtn = printf("%.d", 0);
+//		rtn = printf("@moulitest: %#.o %#.0o", 0, 0);
+//		rtn = printf("%Z");
+//		rtn = printf("%05%");
+//		rtn = printf("%ll-25x", 9223372036854775807);
+//		rtn = printf("%jx", 4294967296);
+//		rtn = printf("%010s is a string", "this");
+//		rtn = printf("%5+d", 42);
+		rtn = printf("%zhd", 4294967296);
 		printf("\nrtn value is: %d\n", rtn);
+//		printf("size of size_t is %lu and size of long is %lu\n", sizeof(size_t), sizeof(long));
 	}
 	return (0);
 }
