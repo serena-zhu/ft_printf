@@ -6,24 +6,28 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/04 13:52:08 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/04 14:46:57 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static void		put_fnbr(t_format *format, int *ct, int show_dot, double *nbr)
+#include <stdio.h> //delete me!!
+static void		put_fnbr(t_format *format, int *ct, int show_dot, double nbr)
 {
 	int amp;
+	double n;
 
 	amp = ft_power(10, format->precision);
-	ft_putnbr_base(*nbr + (!show_dot && ((int)(*nbr * 10) % 10 >= 5)), 10, 0);
+	n = nbr * amp - (unsigned long long)nbr * amp;;
+	ft_putnbr_base(nbr + (!show_dot && ((int)(nbr * 10) % 10 >= 5)), 10, 0);
 	if (show_dot && ++*(ct))
 		ft_putchar('.');
 	if (format->precision > 0 && (*ct += format->precision))
 	{
-		if ((*nbr = (*nbr * amp - (int)*nbr * amp)))
-			ft_putnbr_base(*nbr + ((int)(*nbr * amp * 10) % 10 >= 5), 10, 0);
+		if (n)//((*nbr) = ((*nbr) * amp - (int)((*nbr) * amp))))
+		{
+			ft_putnbr_base(n + ((int)(n * 10) % 10 >= 5), 10, 0);
+		}
 		else
 		{
 			while (format->precision-- > 0)
@@ -58,5 +62,5 @@ void			convert_f(t_format *format, va_list ap, int *ct)
 	if (fill == ' ' && sign)
 		ft_putchar(sign);
 	*ct += (ft_digits((int)nbr, 10) + (sign == '-'));
-	put_fnbr(format, ct, show_dot, &nbr);
+	put_fnbr(format, ct, show_dot, nbr);
 }
