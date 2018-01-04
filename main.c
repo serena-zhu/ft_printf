@@ -6,26 +6,30 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 19:21:25 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/02 22:50:39 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/03 19:31:50 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <wchar.h>
+//#include <wchar.h>
 #include <stdio.h>
+//#include <stdlib.h>
+//#include <locale.h>
 
 int		main(int argc, char **argv)
 {
+//	setlocale(LC_ALL, NULL);
 	if (argc > 1)
 	{
-		unsigned long nbr;
-		nbr = 21474836495;
+//		unsigned long nbr;
+//		nbr = 21474836495;
 
+		printf(argv[1], argv[2]);
 //		uintmax_t nbr = -58;
 //		ft_printf("actual:   %u\n", atoi(argv[1]));;
 //		ft_printf("actual:   %c\n", argv[1][0]);
 //		ft_printf("actual:   %-0#5.6jX\n", nbr); //atoi(argv[1]));
-		ft_printf("actual:   %0#5.6X & %d\n", atoi(argv[1]), atoi(argv[2]));
+//		ft_printf("actual:   %0#5.6X & %d\n", atoi(argv[1]), atoi(argv[2]));
 //		ft_printf("actual:   %O\n", nbr);
 //		ft_printf("actual:   %-+15d\n", atoi(argv[1]));
 
@@ -34,7 +38,7 @@ int		main(int argc, char **argv)
 //		printf("expected: %c\n", argv[1][0]);
 //		printf("expected: %-#5.6jX\n", nbr); //atoi(argv[1]));
 //		printf("%0#5x\n", atoi(argv[1]));
-		printf("expected: %0#5.6X & %d\n", atoi(argv[1]), atoi(argv[2]));
+//		printf("expected: %0#5.6X & %d\n", atoi(argv[1]), atoi(argv[2]));
 //		printf("expected: %O\n", nbr); //not sure why this doesnt work
 //		printf("expected: %-+15d\n", atoi(argv[1]));
 	}	
@@ -93,7 +97,17 @@ int		main(int argc, char **argv)
 //		rtn = ft_printf("%jx", 4294967296);
 //		rtn = ft_printf("%010s is a string", "this");
 //		rtn = ft_printf("%5+d", 42);
-		rtn = ft_printf("%zhd", 4294967296);
+//		rtn = ft_printf("%zhd", 4294967296);
+//		rtn = ft_printf("%hhld", 128);
+//		rtn = ft_printf("@moulitest: %.d %.0d", 0, 0);
+//		rtn = ft_printf("%####0000 33..1..d", 256);	
+//		wchar_t *blah = L"米";
+//		rtn = ft_printf("%S", L"米");
+//		wchar_t chinese[] = L"我不是中国人。";
+//		wchar_t chinese[] = L"something here";
+//		rtn = ft_printf("%S", L"\u0141");
+//		rtn = ft_printf("%S", chinese);
+		rtn = ft_printf("%x\n", "猫猫");
 		ft_printf("\nrtn value is: %d\n", rtn);
 
 		printf("expected: ");
@@ -123,7 +137,15 @@ int		main(int argc, char **argv)
 //		rtn = printf("%jx", 4294967296);
 //		rtn = printf("%010s is a string", "this");
 //		rtn = printf("%5+d", 42);
-		rtn = printf("%zhd", 4294967296);
+//		rtn = printf("%zhd", 4294967296);
+//		rtn = printf("%k\n");
+//		rtn = printf("%hhld", 128);
+//		rtn = printf("@moulitest: %.d %.0d", 0, 0);
+//		rtn = printf("%####0000 33..1..d", 256);
+//		rtn = printf("%S", L"我是一只猫。");
+//		rtn = printf("%S", L"\u0141");
+//		rtn = printf("%ls", chinese);
+		rtn = printf("%S\n", "猫猫");
 		printf("\nrtn value is: %d\n", rtn);
 //		printf("size of size_t is %lu and size of long is %lu\n", sizeof(size_t), sizeof(long));
 	}

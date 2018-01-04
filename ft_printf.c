@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/02 22:52:41 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/03 17:54:01 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,54 @@ static int		conversion(t_format *format, va_list ap, int *count)
 	return (0);
 }
 
-static int		is_valid_conversion(const char c)
+static void		occupy_conversion(const char *s, int *i, t_format *format)
 {
-	return (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i'
+	char c;
+
+	c = s[*i];
+	if (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i'
 			|| c == 'o' || c == 'O' || c == 'u' || c == 'U' || c == 'x'
-			|| c == 'X' || c == 'c' || c == 'C' || c == '%');
+			|| c == 'X' || c == 'c' || c == 'C' || c == '%')
+		format->conversion = s[(*i)++];
+	else
+	{
+		format->conversion = '\0';
+		if ((s[*i] == 'l' && format->len[0] == 'l')
+				|| (s[*i] == 'h' && format->len[0] == 'h'))
+		{
+			(*i)++;
+			while (s[*i] != '\0')
+				(*i)++;
+		}
+	}
 }
 
-static void		occupy_flags(const char *s, int *i, int *j, t_format *format)
+/*
+**	order of precedence if >1 length modifier is provided:
+**  [l, ll, j, t, z] then [h] then [hh]
+*/
+
+static void		occupy_len(const char *s, int *i, t_format *format, int replace)
 {
-	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
-			|| s[*i] == ' ')
-		format->flag[(*j)++] = s[(*i)++];
+	if (replace == 0)
+	{
+		format->len[0] = (s[*i] == 'h' || s[*i] == 'l' || s[*i] == 'j'
+				|| s[*i] == 'z') ? s[(*i)++] : '\0';
+		format->len[1] = ((s[*i - 1] == 'h' && s[*i] == 'h')
+				|| (s[*i - 1] == 'l' && s[*i] == 'l')) ? s[(*i)++] : '\0';
+		format->len[2] = '\0';
+	}
+	else
+	{
+		if ((s[*i] == 'h' || s[*i] == 'l' || s[*i] == 'j' || s[*i] == 'z')
+				&& (*i)++)
+			format->len[0] = (!(format->len[0]) || format->len[1] == 'h'
+				|| (format->len[0] == 'h' && s[(*i) - 1] != 'h'))
+				? s[(*i) - 1] : format->len[0];
+		format->len[1] = ((s[(*i) - 1] == 'h' && s[*i] == 'h')
+				|| (s[(*i) - 1] == 'l' && s[*i] == 'l'))
+				? s[(*i)++] : format->len[1];
+	}
 }
 
 static void		occupy_format(const char *s, int *i, t_format *format)
@@ -54,28 +90,25 @@ static void		occupy_format(const char *s, int *i, t_format *format)
 	int j;
 
 	j = 0;
-	format->len[0] = (s[*i] == 'h' || s[*i] == 'l' || s[*i] == 'j'
-			|| s[*i] == 'z') ? s[(*i)++] : '\0';
-	format->len[1] = ((s[*i - 1] == 'h' && s[*i] == 'h')
-			|| (s[*i - 1] == 'l' && s[*i] == 'l')) ? s[(*i)++] : '\0';
-	format->len[2] = '\0';
-	occupy_flags(s, i, &j, format);
+	occupy_len(s, i, format, 0);
+	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
+			|| s[*i] == ' ')
+		format->flag[j++] = s[(*i)++];
 	format->min_width = (s[*i] >= '0' && s[*i] <= '9') ? ft_atoi(&s[*i]) : -1;
 	while (s[*i] >= '0' && s[*i] <= '9')
 		(*i)++;
-	occupy_flags(s, i, &j, format);
+	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
+			|| s[*i] == ' ')
+		format->flag[j++] = s[(*i)++];
+	while (j < 5)
+		format->flag[j++] = '\0';
 	format->precision = (s[*i] == '.') ? 0 : -1;
 	format->precision = (s[*i] == '.' && s[++(*i)] >= '0' && s[*i] <= '9')
 						? ft_atoi(&s[*i]) : format->precision;
 	while (s[*i] >= '0' && s[*i] <= '9')
 		(*i)++;
-	if ((s[*i] == 'h' || s[*i] == 'l' || s[*i] == 'j' || s[*i] == 'z') && (*i)++)
-		format->len[0] = (!(format->len[0])) ? s[(*i) - 1] : format->len[0];
-	format->len[1] = (!format->len[1] && ((s[*i - 1] == 'h' && s[*i] == 'h')
-		|| (s[*i - 1] == 'l' && s[*i] == 'l'))) ? s[(*i)++] : format->len[1];
-	while (j < 5)
-		format->flag[j++] = '\0';
-	format->conversion = is_valid_conversion(s[*i]) ? s[(*i)++] : '\0';
+	occupy_len(s, i, format, 1);
+	occupy_conversion(s, i, format);
 }
 
 int				ft_printf(const char *s, ...)

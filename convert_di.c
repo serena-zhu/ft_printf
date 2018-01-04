@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 17:37:05 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/02 22:17:47 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/03 16:55:32 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int		is_neg_and_mod_nbr(unsigned long long *nbr, t_format *format)
 
 static void		set_sign(char *sign, int neg, t_format *format)
 {
-	*sign = '\0';
 	if (neg)
 	{
 		*sign = '-';
@@ -86,6 +85,7 @@ void			convert_di(t_format *format, va_list ap, int *count)
 	int					zero_nbr_precision;
 
 	fill = ' ';
+	sign = '\0';
 	nbr = va_arg(ap, unsigned long long);
 	zero_nbr_precision = (format->precision == 0 && nbr == 0) ? 1 : 0;
 	if (!zero_nbr_precision)
