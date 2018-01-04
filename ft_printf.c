@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/03 20:32:42 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/03 21:05:22 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int		conversion(t_format *format, va_list ap, int *count)
 		convert_c(format, ap, count, has_l_mod);
 	else if (c == 'p')
 		convert_p(format, ap, count);
+	else if (c == 'n')
+		*(va_arg(ap, int *)) = *count;
 	return (0);
 }
 
@@ -42,7 +44,7 @@ static void		occupy_conversion(const char *s, int *i, t_format *format)
 	c = s[*i];
 	if (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i'
 			|| c == 'o' || c == 'O' || c == 'u' || c == 'U' || c == 'x'
-			|| c == 'X' || c == 'c' || c == 'C' || c == '%')
+			|| c == 'X' || c == 'c' || c == 'C' || c == '%' || c == 'n')
 		format->conversion = s[(*i)++];
 	else
 	{
