@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 17:37:05 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/03 16:55:32 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/03 20:11:10 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		set_sign(char *sign, int neg, t_format *format)
 	if (neg)
 	{
 		*sign = '-';
-		format->min_width--;
+		format->min_wd--;
 	}
 	else
 	{
@@ -61,12 +61,12 @@ static char		processes(t_format *format, unsigned long long *nbr,
 	fill = ' ';
 	neg = is_neg_and_mod_nbr(nbr, format);
 	set_sign(sign, neg, format);
-	format->min_width -= (ft_digits(*nbr, 10) + (*sign == ' ' || *sign == '+'));
+	format->min_wd -= (ft_digits(*nbr, 10) + (*sign == ' ' || *sign == '+'));
 	*count += (ft_digits(*nbr, 10) + (*sign == ' ' || *sign == '+' || neg));
 	if (format->precision >= 0)
 	{
 		if ((format->precision -= ft_digits(*nbr, 10)) > 0)
-			format->min_width -= format->precision;
+			format->min_wd -= format->precision;
 	}
 	else if (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 	{
@@ -90,7 +90,7 @@ void			convert_di(t_format *format, va_list ap, int *count)
 	zero_nbr_precision = (format->precision == 0 && nbr == 0) ? 1 : 0;
 	if (!zero_nbr_precision)
 		fill = processes(format, &nbr, count, &sign);
-	while (!(ft_haschar(format->flag, '-')) && format->min_width-- > 0
+	while (!(ft_haschar(format->flag, '-')) && format->min_wd-- > 0
 			&& ++(*count))
 		ft_putchar(fill);
 	if (fill == ' ' && sign)
@@ -99,7 +99,7 @@ void			convert_di(t_format *format, va_list ap, int *count)
 		ft_putchar('0');
 	if (!zero_nbr_precision)
 		ft_putnbr_base(nbr, 10, 0);
-	while (ft_haschar(format->flag, '-') && format->min_width-- > 0
+	while (ft_haschar(format->flag, '-') && format->min_wd-- > 0
 			&& ++(*count))
 		ft_putchar(fill);
 }

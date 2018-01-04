@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 11:48:40 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/02 20:04:26 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/03 20:10:35 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static char		processes(t_format *format, unsigned long long *nbr,
 	fill = ' ';
 	if (!(alt_form_count = 0) && ft_haschar(format->flag, '#') && *nbr != 0)
 		alt_form_count = (base == 16) ? 2 : (base == 8);
-	format->min_width -= (ft_digits(*nbr, base) + alt_form_count);
+	format->min_wd -= (ft_digits(*nbr, base) + alt_form_count);
 	*count += (ft_digits(*nbr, base) + alt_form_count);
 	if (format->precision > 0)
 	{
 		if ((format->precision -= ft_digits(*nbr, base)) > 0)
-			format->min_width -= format->precision;
+			format->min_wd -= format->precision;
 	}
 	else if (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 	{
@@ -47,7 +47,7 @@ static char		processes(t_format *format, unsigned long long *nbr,
 	return (fill);
 }
 
-void			convert_xou(t_format *format, va_list ap, int *count)
+void			convert_xou(t_format *format, va_list ap, int *ct)
 {
 	char				fill;
 	unsigned long long	nbr;
@@ -63,17 +63,15 @@ void			convert_xou(t_format *format, va_list ap, int *count)
 	base = (format->conversion == 'x' || format->conversion == 'X') ? 16 : 8;
 	base = (is_u) ? 10 : base;
 	if (!skip_nbr)
-		fill = processes(format, &nbr, count, base);
-	while (!(ft_haschar(format->flag, '-')) && format->min_width-- > 0
-			&& ++(*count))
+		fill = processes(format, &nbr, ct, base);
+	while (!(ft_haschar(format->flag, '-')) && format->min_wd-- > 0 && ++(*ct))
 		ft_putchar(fill);
 	if (!is_u && fill == ' ' && ft_haschar(format->flag, '#') && nbr != 0)
 		alternate_form(format);
-	while (format->precision-- > 0 && ++(*count))
+	while (format->precision-- > 0 && ++(*ct))
 		ft_putchar('0');
 	if (!skip_nbr)
 		ft_putnbr_base(nbr, base, format->conversion == 'X');
-	while (ft_haschar(format->flag, '-') && format->min_width-- > 0
-			&& ++(*count))
+	while (ft_haschar(format->flag, '-') && format->min_wd-- > 0 && ++(*ct))
 		ft_putchar(fill);
 }

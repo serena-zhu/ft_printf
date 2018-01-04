@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/03 17:54:01 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/03 20:32:42 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void		occupy_len(const char *s, int *i, t_format *format, int replace)
 	}
 }
 
-static void		occupy_format(const char *s, int *i, t_format *format)
+static void		occupy_format(const char *s, int *i, t_format *format, va_list ap)
 {
 	int j;
 
@@ -94,9 +94,10 @@ static void		occupy_format(const char *s, int *i, t_format *format)
 	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
 			|| s[*i] == ' ')
 		format->flag[j++] = s[(*i)++];
-	format->min_width = (s[*i] >= '0' && s[*i] <= '9') ? ft_atoi(&s[*i]) : -1;
+	format->min_wd = (s[*i] >= '0' && s[*i] <= '9') ? ft_atoi(&s[*i]) : -1;
 	while (s[*i] >= '0' && s[*i] <= '9')
 		(*i)++;
+	format->min_wd = (s[*i] == '*' && (*i)++) ? va_arg(ap, int) : format->min_wd;
 	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
 			|| s[*i] == ' ')
 		format->flag[j++] = s[(*i)++];
@@ -126,7 +127,7 @@ int				ft_printf(const char *s, ...)
 		if (s[i] == '%')
 		{
 			i++;
-			occupy_format(s, &i, &format);
+			occupy_format(s, &i, &format, ap);
 			if (format.conversion == 'D' || format.conversion == 'O'
 					|| format.conversion == 'U' || format.conversion == 'S'
 					|| format.conversion == 'C')
