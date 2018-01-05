@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 13:30:20 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 13:31:21 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 				nbr /= 10;
 		else if (nbr != 0)
 		{
-			while (nbr < 1 && test-- >0  && ++shift_dot)
+			while (nbr < 1 && ++shift_dot)
 				nbr *= 10;
 		}
 	}
