@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 13:02:12 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 13:05:13 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 	char	exp;
 
 	shift_dot = (nbr >= 1) ? ft_digits((unsigned long long)nbr, 10) - 1 : 0;
-	shift_dot = ft_digits((unsigned long long)nbr, 10) - 1;
+//	shift_dot = ft_digits((unsigned long long)nbr, 10) - 1;
 	tmp = shift_dot;
 	exp = (nbr >= 1) ? '+' : '-';
 	if (format->conversion == 'e' || format->conversion == 'E')
