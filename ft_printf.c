@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 11:54:28 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 11:56:06 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void		occupy_len(const char *s, int *i, t_format *format, int replace)
 	else
 	{
 		if ((s[*i] == 'h' || s[*i] == 'l' || s[*i] == 'j' || s[*i] == 'z'
-				||/* s[*i] == 'L'*/) && (*i)++)
+				/*|| s[*i] == 'L'*/) && (*i)++)
 			format->len[0] = (!(format->len[0]) || format->len[1] == 'h'
 				|| (format->len[0] == 'h' && s[(*i) - 1] != 'h'))
 				? s[(*i) - 1] : format->len[0];
