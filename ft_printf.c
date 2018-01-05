@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/04 17:02:32 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/04 22:12:04 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ static void		occupy_len(const char *s, int *i, t_format *format, int replace)
 	if (replace == 0)
 	{
 		format->len[0] = (s[*i] == 'h' || s[*i] == 'l' || s[*i] == 'j'
-				|| s[*i] == 'z') ? s[(*i)++] : '\0';
+				|| s[*i] == 'z' || s[*i] == 'L') ? s[(*i)++] : '\0';
 		format->len[1] = ((s[*i - 1] == 'h' && s[*i] == 'h')
 				|| (s[*i - 1] == 'l' && s[*i] == 'l')) ? s[(*i)++] : '\0';
 		format->len[2] = '\0';
 	}
 	else
 	{
-		if ((s[*i] == 'h' || s[*i] == 'l' || s[*i] == 'j' || s[*i] == 'z')
-				&& (*i)++)
+		if ((s[*i] == 'h' || s[*i] == 'l' || s[*i] == 'j' || s[*i] == 'z'
+				|| s[*i] == 'L') && (*i)++)
 			format->len[0] = (!(format->len[0]) || format->len[1] == 'h'
 				|| (format->len[0] == 'h' && s[(*i) - 1] != 'h'))
 				? s[(*i) - 1] : format->len[0];

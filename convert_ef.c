@@ -6,16 +6,16 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/04 21:55:25 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/04 22:10:51 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void		put_fnbr(t_format *format, int *ct, int show_dot, double nbr)
+static void		put_fnbr(t_format *format, int *ct, int show_dot, long double nbr)
 {
 	int					amp;
-	double				n;
+	long double			n;
 
 	amp = ft_power(10, format->precision);
 	ft_putnbr_base(nbr + (!show_dot && ((int)(nbr * 10) % 10 >= 5)), 10, 0);
@@ -41,7 +41,7 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, double nbr)
 	}
 }
 
-static void		processes(t_format *format, int *ct, int show_dot, double nbr)
+static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 {
 	int shift_dot;
 
@@ -67,14 +67,14 @@ static void		processes(t_format *format, int *ct, int show_dot, double nbr)
 
 void			convert_ef(t_format *format, va_list ap, int *ct)
 {
-	double	nbr;
+	long double	nbr;
 	char	fill;
 	char	sign;
 	int		show_dot;
 
 	fill = (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 			? '0' : ' ';
-	nbr = va_arg(ap, double);
+	nbr = va_arg(ap, long double);
 	sign = (ft_haschar(format->flag, ' ') && nbr >= 0) ? ' ' : '\0';
 	sign = (ft_haschar(format->flag, '+') && nbr >= 0) ? '+' : sign;
 	sign = (nbr < 0) ? '-' : sign;
