@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/04 21:52:24 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/04 21:54:15 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, double nbr)
 		ft_putchar('.');
 	if (format->precision > 0 && (*ct += format->precision))
 	{
-		if ((n = nbr * amp - (int)nbr * amp))
+		if ((n = nbr * amp - (unsigned long long)nbr * amp))
 		{
 //			while ((nbr *= 10) && ((int)nbr % 10) == 0
 //											&& ((int)(nbr * 10) % 10 != 9))
