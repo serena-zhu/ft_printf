@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 13:27:13 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 13:29:02 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 		if (nbr >= 1)
 			while (tmp-- > 0)
 				nbr /= 10;
-		else
+		else if (nbr != 0)
 		{
 			int test = 40;
 /*			printf("nbr is %Lf\n", nbr);
