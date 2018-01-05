@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 12:38:43 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 12:41:30 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 		ft_putchar('+');
 		if (shift_dot < 10)
 			ft_putchar('0');
-	 	if ((ft_strcmp(format->len, "L") && (format->conversion == 'e'
+	 	if ((ft_strcmp(format->len, "L") == 0 && (format->conversion == 'e'
 				|| format->conversion == 'E') && (*ct)++ && shift_dot < 10))
 			ft_putchar('0');
 		ft_putnbr_base(shift_dot, 10, 0);
