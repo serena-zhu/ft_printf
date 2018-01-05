@@ -6,12 +6,12 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 12:10:39 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 12:38:43 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h> //delete me!!!
 static void		put_fnbr(t_format *format, int *ct, int show_dot, long double nbr)
 {
 	int			amp;
@@ -44,15 +44,19 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, long double nbr)
 static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 {
 	int		shift_dot;
+	int		tmp;
 //	char	exp;
 
 //	shift_dot = (nbr >= 1) ? ft_digits((unsigned long long)nbr, 10) - 1 : 0;
 	shift_dot = ft_digits((unsigned long long)nbr, 10) - 1;
+	tmp = shift_dot;
 //	exp = (nbr >= 1) ? '+' : '-';
 	if (format->conversion == 'e' || format->conversion == 'E')
 	{
 //		if (nbr >= 1)
-			nbr /= ft_power(10, shift_dot);
+			while (tmp-- > 0)
+				nbr /= 10;
+//			nbr /= ft_power(10, shift_dot);
 //		else
 //		{
 //			while (nbr < 1 && ++shift_dot)
@@ -70,7 +74,7 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 		if (shift_dot < 10)
 			ft_putchar('0');
 	 	if ((ft_strcmp(format->len, "L") && (format->conversion == 'e'
-				|| format->conversion == 'E') && (*ct)++ && shift_dot < 100))
+				|| format->conversion == 'E') && (*ct)++ && shift_dot < 10))
 			ft_putchar('0');
 		ft_putnbr_base(shift_dot, 10, 0);
 	}
