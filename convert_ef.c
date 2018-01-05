@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/04 22:19:42 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/04 22:54:19 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,31 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, double nbr)
 
 static void		processes(t_format *format, int *ct, int show_dot, double nbr)
 {
-	int shift_dot;
+	int		shift_dot;
+	char	exp;
 
-	shift_dot = ft_digits((unsigned long long)nbr, 10) - 1;
+	shift_dot = (nbr >= 1) ? ft_digits((unsigned long long)nbr, 10) - 1 : 0;
+	exp = (nbr >= 1) ? '+' : '-';
 	if (format->conversion == 'e' || format->conversion == 'E')
-		nbr /= ft_power(10, shift_dot);
+	{
+		if (nbr >= 1)
+			nbr /= ft_power(10, shift_dot);
+		else
+		{
+			while (nbr < 1 && ++shift_dot)
+				nbr *= 10;
+		}
+	}
 	else
 		*ct = shift_dot + 1;
 	put_fnbr(format, ct, show_dot, nbr);
-	if (format->conversion == 'e' || format->conversion == 'E')
+	if ((format->conversion == 'e' || format->conversion == 'E') && (*ct += 5))
 	{
 		ft_putchar(format->conversion);
-		ft_putchar('+');
+		ft_putchar(exp);
 		if (shift_dot < 10)
 			ft_putchar('0');
 		ft_putnbr_base(shift_dot, 10, 0);
-		*ct += 5;
 	}
 }
 
