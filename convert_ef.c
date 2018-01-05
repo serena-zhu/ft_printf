@@ -6,12 +6,12 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 13:29:02 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 13:30:20 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> //delete me!!
+
 static void		put_fnbr(t_format *format, int *ct, int show_dot, long double nbr)
 {
 	int			amp;
@@ -48,7 +48,6 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 	char	exp;
 
 	shift_dot = (nbr >= 1) ? ft_digits((unsigned long long)nbr, 10) - 1 : 0;
-//	shift_dot = ft_digits((unsigned long long)nbr, 10) - 1;
 	tmp = shift_dot;
 	exp = (nbr >= 1 || nbr == 0) ? '+' : '-';
 	if (format->conversion == 'e' || format->conversion == 'E')
@@ -58,15 +57,7 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 				nbr /= 10;
 		else if (nbr != 0)
 		{
-			int test = 40;
-/*			printf("nbr is %Lf\n", nbr);
-			while (test-- > 0)
-			{
-				printf("nbr < 1? %d nbr >= 0? %d", nbr < 1, nbr >=0);
-				nbr *= 10;
-				printf("nbr is now %Lf\n", nbr);
-			}
-*/			while (nbr < 1 /*&& nbr >= 0*/ && test-- >0  && ++shift_dot)
+			while (nbr < 1 && test-- >0  && ++shift_dot)
 				nbr *= 10;
 		}
 	}
@@ -77,7 +68,6 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 	{
 		ft_putchar(format->conversion);
 		ft_putchar(exp);
-//		ft_putchar('+');
 		if (shift_dot < 10)
 			ft_putchar('0');
 		ft_putnbr_base(shift_dot, 10, 0);
