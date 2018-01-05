@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/04 21:54:15 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/04 21:55:25 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, double nbr)
 	double				n;
 
 	amp = ft_power(10, format->precision);
-//	n = nbr * amp - (unsigned long long)nbr * amp; //why not work if nbr is casted as int instead of ull?
 	ft_putnbr_base(nbr + (!show_dot && ((int)(nbr * 10) % 10 >= 5)), 10, 0);
 	if (show_dot && ++*(ct))
 		ft_putchar('.');
@@ -26,8 +25,6 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, double nbr)
 	{
 		if ((n = nbr * amp - (unsigned long long)nbr * amp))
 		{
-//			while ((nbr *= 10) && ((int)nbr % 10) == 0
-//											&& ((int)(nbr * 10) % 10 != 9))
 			nbr *= 10;
 			while (((int)nbr % 10) == 0 && ((int)(nbr * 10) % 10 != 9))
 			{
