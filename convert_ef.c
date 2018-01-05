@@ -6,16 +6,16 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 12:06:15 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 12:10:39 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void		put_fnbr(t_format *format, int *ct, int show_dot, /*long*/ double nbr)
+static void		put_fnbr(t_format *format, int *ct, int show_dot, long double nbr)
 {
 	int			amp;
-	/*long*/ double	n;
+	long double	n;
 
 	amp = ft_power(10, format->precision);
 	ft_putnbr_base(nbr + (!show_dot && ((int)(nbr * 10) % 10 >= 5)), 10, 0);
@@ -41,7 +41,7 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, /*long*/ double n
 	}
 }
 
-static void		processes(t_format *format, int *ct, int show_dot, /*long*/ double nbr)
+static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 {
 	int		shift_dot;
 //	char	exp;
@@ -69,9 +69,9 @@ static void		processes(t_format *format, int *ct, int show_dot, /*long*/ double 
 		ft_putchar('+');
 		if (shift_dot < 10)
 			ft_putchar('0');
-//	 	if ((ft_strcmp(format->len, "L") && (format->conversion == 'e'
-//				|| format->conversion == 'E') && shift_dot < 100))
-//			ft_putchar('0');
+	 	if ((ft_strcmp(format->len, "L") && (format->conversion == 'e'
+				|| format->conversion == 'E') && (*ct)++ && shift_dot < 100))
+			ft_putchar('0');
 		ft_putnbr_base(shift_dot, 10, 0);
 	}
 }
@@ -81,17 +81,17 @@ static void		processes(t_format *format, int *ct, int show_dot, /*long*/ double 
 
 void			convert_ef(t_format *format, va_list ap, int *ct)
 {
-	/*long*/ double	nbr;
+	long  double	nbr;
 	char		fill;
 	char		sign;
 	int			show_dot;
 
 	fill = (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 			? '0' : ' ';
-//	nbr = (ft_strcmp(format->len, "L") == 0 
-//			&& (format->conversion == 'e' || format->conversion == 'E'))
-//			? va_arg(ap, long double) : va_arg(ap, double);
-	nbr = va_arg(ap, double);
+	nbr = (ft_strcmp(format->len, "L") == 0 
+			&& (format->conversion == 'e' || format->conversion == 'E'))
+			? va_arg(ap, long double) : va_arg(ap, double);
+//	nbr = va_arg(ap, double);
 //	sign = (ft_haschar(format->flag, ' ') && nbr >= 0) ? ' ' : '\0';
 //	sign = (ft_haschar(format->flag, '+') && nbr >= 0) ? '+' : sign;
 	sign = (nbr < 0) ? '-' : '\0';//: sign;
