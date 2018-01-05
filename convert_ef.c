@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/04 18:26:27 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/04 21:46:48 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, double nbr)
 	{
 		if (n)
 		{
-			while ((nbr *= 10) && ((int)(nbr) % 10 == 0))
+//			nbr *= 10;
+			while ((nbr *= 10) && ((int)nbr % 10) == 0 && ((int)(nbr * 10) % 10 != 9))
+			{
+//				nbr *= 10;
 				ft_putchar('0');
+			}
 			ft_putnbr_base(n + ((int)(n * 10) % 10 >= 5), 10, 0);
 		}
 		else
@@ -80,7 +84,7 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0) ? 1 : 0;
 	format->min_wd -= (format->precision + show_dot + (sign != '\0'));
 	format->min_wd -= (format->conversion == 'f' || format->conversion == 'F')
-		? ft_digits((unsigned long long)nbr, 10) : 5;
+		? ft_digits((unsigned long long)nbr, 10) : 5; //will this work with int?
 	if (fill == '0' && sign)
 		ft_putchar(sign);
 	while (!(ft_haschar(format->flag, '-')) && format->min_wd-- > 0 && ++(*ct))
