@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 12:43:14 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 12:47:07 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,6 @@ static void		processes(t_format *format, int *ct, int show_dot, long double nbr)
 		ft_putchar('+');
 		if (shift_dot < 10)
 			ft_putchar('0');
-//	 	if ((ft_strcmp(format->len, "L") == 0 && (format->conversion == 'e'
-//				|| format->conversion == 'E') && (*ct)++ && shift_dot < 100))
-//			ft_putchar('0');
 		ft_putnbr_base(shift_dot, 10, 0);
 	}
 }
@@ -93,7 +90,7 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 	fill = (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 			? '0' : ' ';
 	nbr = (ft_strcmp(format->len, "L") == 0 
-			&& (format->conversion == 'e' || format->conversion == 'E'))
+/*			&& (format->conversion == 'e' || format->conversion == 'E')*/)
 			? va_arg(ap, long double) : va_arg(ap, double);
 //	nbr = va_arg(ap, double);
 //	sign = (ft_haschar(format->flag, ' ') && nbr >= 0) ? ' ' : '\0';
