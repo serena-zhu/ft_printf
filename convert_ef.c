@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/04 22:10:51 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/04 22:15:36 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 	fill = (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 			? '0' : ' ';
 	nbr = va_arg(ap, long double);
+	if (ft_strcmp(format->len, "L") != 0 || format->conversion == 'f' || format->conversion == 'F')
+		nbr = (double)nbr;
 	sign = (ft_haschar(format->flag, ' ') && nbr >= 0) ? ' ' : '\0';
 	sign = (ft_haschar(format->flag, '+') && nbr >= 0) ? '+' : sign;
 	sign = (nbr < 0) ? '-' : sign;
