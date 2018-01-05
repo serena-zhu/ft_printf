@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 11:48:10 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 12:03:43 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, /*long*/ double n
 		if ((n = nbr * amp - (unsigned long long)nbr * amp))
 		{
 			nbr *= 10;
-			while (((int)nbr % 10) == 0 && ((int)(nbr * 10) % 10 != 9))
+			while (((int)nbr % 10) == 0)// && ((int)(nbr * 10) % 10 != 9))
 			{
 				ft_putchar('0');
 				nbr *= 10;
@@ -44,19 +44,20 @@ static void		put_fnbr(t_format *format, int *ct, int show_dot, /*long*/ double n
 static void		processes(t_format *format, int *ct, int show_dot, /*long*/ double nbr)
 {
 	int		shift_dot;
-	char	exp;
+//	char	exp;
 
-	shift_dot = (nbr >= 1) ? ft_digits((unsigned long long)nbr, 10) - 1 : 0;
-	exp = (nbr >= 1) ? '+' : '-';
+//	shift_dot = (nbr >= 1) ? ft_digits((unsigned long long)nbr, 10) - 1 : 0;
+	shift_dot = ft_digits((unsigned long long)nbr, 10) - 1;
+//	exp = (nbr >= 1) ? '+' : '-';
 	if (format->conversion == 'e' || format->conversion == 'E')
 	{
-		if (nbr >= 1)
+//		if (nbr >= 1)
 			nbr /= ft_power(10, shift_dot);
-		else
-		{
-			while (nbr < 1 && ++shift_dot)
-				nbr *= 10;
-		}
+//		else
+//		{
+//			while (nbr < 1 && ++shift_dot)
+//				nbr *= 10;
+//		}
 	}
 	else
 		*ct = shift_dot + 1;
@@ -64,7 +65,8 @@ static void		processes(t_format *format, int *ct, int show_dot, /*long*/ double 
 	if ((format->conversion == 'e' || format->conversion == 'E') && (*ct += 5))
 	{
 		ft_putchar(format->conversion);
-		ft_putchar(exp);
+//		ft_putchar(exp);
+		ft_putchar('+');
 		if (shift_dot < 10)
 			ft_putchar('0');
 //	 	if ((ft_strcmp(format->len, "L") && (format->conversion == 'e'
@@ -90,9 +92,9 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 //			&& (format->conversion == 'e' || format->conversion == 'E'))
 //			? va_arg(ap, long double) : va_arg(ap, double);
 	nbr = va_arg(ap, double);
-	sign = (ft_haschar(format->flag, ' ') && nbr >= 0) ? ' ' : '\0';
-	sign = (ft_haschar(format->flag, '+') && nbr >= 0) ? '+' : sign;
-	sign = (nbr < 0) ? '-' : sign;
+//	sign = (ft_haschar(format->flag, ' ') && nbr >= 0) ? ' ' : '\0';
+//	sign = (ft_haschar(format->flag, '+') && nbr >= 0) ? '+' : sign;
+	sign = (nbr < 0) ? '-' : '\0';//: sign;
 	nbr = (nbr < 0) ? nbr * -1 : nbr;
 	format->precision = (format->precision < 0) ? 6 : format->precision;
 	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0) ? 1 : 0;
