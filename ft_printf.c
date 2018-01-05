@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 12:11:55 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 13:55:08 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int		conversion(t_format *format, va_list ap, int *count)
 		convert_p(format, ap, count);
 	else if (c == 'n')
 		*(va_arg(ap, int *)) = *count; //need to incorporate length modifiers?
-	else if (c == 'f' || c == 'F' || c == 'e' || c == 'E')
+	else if (c == 'f' || c == 'F' || c == 'e' || c == 'E' || c == 'g' || c == 'G')
 		convert_ef(format, ap, count);
 //	else if (c == 'e' || c == 'E')
 //		convert_e(format, ap, count);
@@ -49,7 +49,8 @@ static void		occupy_conversion(const char *s, int *i, t_format *format)
 	if (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i'
 			|| c == 'o' || c == 'O' || c == 'u' || c == 'U' || c == 'x'
 			|| c == 'X' || c == 'c' || c == 'C' || c == '%' || c == 'n'
-			|| c == 'f' || c == 'F' || c == 'e' || c == 'E')
+			|| c == 'f' || c == 'F' || c == 'e' || c == 'E' || c == 'g'
+			|| c == 'G')
 		format->conversion = s[(*i)++];
 	else
 	{
@@ -110,7 +111,7 @@ static void		occupy_format(const char *s, int *i, t_format *format, va_list ap)
 		format->flag[j++] = s[(*i)++];
 	while (j < 5)
 		format->flag[j++] = '\0';
-	format->precision = (s[*i] == '.') ? 0 : -1;
+	format->precision = (s[*i] == '.') ? 0 : -1; //what about star precision?
 	format->precision = (s[*i] == '.' && s[++(*i)] >= '0' && s[*i] <= '9')
 						? ft_atoi(&s[*i]) : format->precision;
 	while (s[*i] >= '0' && s[*i] <= '9')
