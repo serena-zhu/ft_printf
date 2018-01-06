@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 16:35:46 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 18:43:54 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,16 @@ static void		nbr_processes(t_format *format, int *ct, int show_dot,
 		put_exp_for_e(format, shift_dot, exp);
 }
 
-static void		convert_g_to_ef(t_format *format, long double nbr, int no_precision)
+static void		convert_g_to_ef(t_format *format, long double nbr)//, int no_precision)
 {
 	int digits;
 	int	shift_dot;
 	int	trailing_zeros;
 
 	format->precision = (format->precision == 0) ? 1 : format->precision;
-	format->precision = (no_precision) ? 6 : format->precision;
+//	format->precision = (no_precision) ? 6 : format->precision;
 	shift_dot = 0;
+	int	tmp = 0;
 	if (nbr < 1 && nbr > 0)
 	{
 		while (nbr < 1 && ++shift_dot)
@@ -100,9 +101,11 @@ static void		convert_g_to_ef(t_format *format, long double nbr, int no_precision
 		else
 		{
 			format->conversion += ('f' - 'g');
-			format->precision += (shift_dot - 1);
+			tmp = shift_dot - 1;
+//			format->precision += (shift_dot - 1);
 		}
 //		printf("precision is %d and nbr is %LF\n", format->precision, nbr);
+//		nbr *= 10;
 	}
 	else
 	{
@@ -118,10 +121,22 @@ static void		convert_g_to_ef(t_format *format, long double nbr, int no_precision
 			format->conversion += ('f' - 'g');
 			format->precision -= digits;
 		}
-		nbr *= 10;
+	//	nbr *= 10;
 	}
 	trailing_zeros = 0;
-//	nbr *= 10;
+//	printf("nbr is %Lf\n", nbr);
+	nbr *= ft_power(10, format->precision);
+	printf("nbr is now %Lf and precision starts as %d\n", nbr, format->precision);
+	printf("this is nbr mod 10 %d\n", (int)nbr % 10);
+	while ((((int)nbr % 10) == 0 || (((int)nbr % 10) == 9 && ((int)(nbr / 10) % 10 == 9)))
+			&& format->precision-- > 0)
+	{	
+		nbr /= 10;
+		printf("next nbr is %Lf and mod 10 is %d\n", nbr, (int)nbr % 10);
+	}
+	format->precision += tmp;
+	printf("precision is now %d\n", format->precision);
+/*//	nbr *= 10;
 	if (no_precision)
 	{
 		format->precision = 0;
@@ -141,7 +156,7 @@ static void		convert_g_to_ef(t_format *format, long double nbr, int no_precision
 			trailing_zeros++;
 		}
 		format->precision = (trailing_zeros == format->precision) ? 0 : format->precision;
-	}
+	}*/
 }
 
 //what about negative 0?
@@ -153,7 +168,7 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 	char			sign;
 	int				show_dot;
 
-//	format->precision = (format->precision < 0) ? 6 : format->precision;
+	format->precision = (format->precision < 0) ? 6 : format->precision;
 	fill = (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 			? '0' : ' ';
 	nbr = (ft_strcmp(format->len, "L") == 0)
@@ -163,9 +178,9 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 	sign = (nbr < 0) ? '-' : sign;
 	nbr = (nbr < 0) ? nbr * -1 : nbr;
 	if (format->conversion == 'g' || format->conversion == 'G')
-		convert_g_to_ef(format, nbr, (format->precision < 0));
-	else if (format->precision < 0)
-		format->precision = 6;
+		convert_g_to_ef(format, nbr);//, (format->precision < 0));
+//	else if (format->precision < 0)
+//		format->precision = 6;
 	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0) ? 1 : 0; //'#' for %gG?
 	format->min_wd -= (format->precision + show_dot + (sign != '\0'));
 	format->min_wd -= (format->conversion == 'f' || format->conversion == 'F')
