@@ -6,12 +6,12 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 16:13:29 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 16:35:46 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h>//delete me!!!
 static void		put_fnbr(t_format *format, int *ct, int show_dot,
 															long double nbr)
 {
@@ -102,6 +102,7 @@ static void		convert_g_to_ef(t_format *format, long double nbr, int no_precision
 			format->conversion += ('f' - 'g');
 			format->precision += (shift_dot - 1);
 		}
+//		printf("precision is %d and nbr is %LF\n", format->precision, nbr);
 	}
 	else
 	{
@@ -117,17 +118,23 @@ static void		convert_g_to_ef(t_format *format, long double nbr, int no_precision
 			format->conversion += ('f' - 'g');
 			format->precision -= digits;
 		}
+		nbr *= 10;
 	}
 	trailing_zeros = 0;
-	nbr *= 10;
+//	nbr *= 10;
 	if (no_precision)
 	{
 		format->precision = 0;
-		while (((int)nbr % 10) != 0 && ((int)(nbr / 10) % 10 != 9) && ++(format->precision))
+//		printf("nbr is %Lf and mod 10 is %d and next mod 10 is %d and next next mod is %d\n", nbr, (int)nbr % 10, (int)(nbr * 10) % 10, (int)(nbr * 100) % 10);
+		while (((int)nbr % 10) != 0 && ++(format->precision) && ((int)(nbr * 10) % 10 != 9))//  && ++(format->precision))
+		{
 			nbr *= 10;	
+//			format->precision++;
+		}
 	}
 	else 
 	{
+//		nbr *= 10;
 		while ((trailing_zeros < format->precision) && (((int)nbr % 10) == 0))
 		{
 			nbr *= 10;
