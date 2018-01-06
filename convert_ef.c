@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 18:43:54 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 18:45:19 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,16 @@ static void		convert_g_to_ef(t_format *format, long double nbr)//, int no_precis
 	trailing_zeros = 0;
 //	printf("nbr is %Lf\n", nbr);
 	nbr *= ft_power(10, format->precision);
-	printf("nbr is now %Lf and precision starts as %d\n", nbr, format->precision);
-	printf("this is nbr mod 10 %d\n", (int)nbr % 10);
+//	printf("nbr is now %Lf and precision starts as %d\n", nbr, format->precision);
+//	printf("this is nbr mod 10 %d\n", (int)nbr % 10);
 	while ((((int)nbr % 10) == 0 || (((int)nbr % 10) == 9 && ((int)(nbr / 10) % 10 == 9)))
 			&& format->precision-- > 0)
 	{	
 		nbr /= 10;
-		printf("next nbr is %Lf and mod 10 is %d\n", nbr, (int)nbr % 10);
+//		printf("next nbr is %Lf and mod 10 is %d\n", nbr, (int)nbr % 10);
 	}
 	format->precision += tmp;
-	printf("precision is now %d\n", format->precision);
+//	printf("precision is now %d\n", format->precision);
 /*//	nbr *= 10;
 	if (no_precision)
 	{
