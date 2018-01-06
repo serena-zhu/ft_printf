@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 15:43:17 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 16:06:20 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,14 @@ static void		nbr_processes(t_format *format, int *ct, int show_dot,
 		put_exp_for_e(format, shift_dot, exp);
 }
 
-static void		convert_g_to_ef(t_format *format, long double nbr)
+static void		convert_g_to_ef(t_format *format, long double nbr, int no_precision)
 {
 	int digits;
 	int	shift_dot;
 	int	trailing_zeros;
 
 	format->precision = (format->precision == 0) ? 1 : format->precision;
+	format->precision = (no_precision) ? 6 : format->precision;
 	shift_dot = 0;
 	if (nbr < 1 && nbr > 0)
 	{
@@ -119,12 +120,21 @@ static void		convert_g_to_ef(t_format *format, long double nbr)
 	}
 	trailing_zeros = 0;
 	nbr *= 10;
-	while ((trailing_zeros < format->precision) && (((int)nbr % 10) == 0))
+	if (no_precision)
 	{
-		nbr *= 10;
-		trailing_zeros++;
+		format->precision = 0;
+		while (((int)nbr % 10) != 0 && ++(format->precision))
+			nbr *= 10;	
 	}
-	format->precision = (trailing_zeros == format->precision) ? 0 : format->precision;
+	else 
+	{
+		while ((trailing_zeros < format->precision) && (((int)nbr % 10) == 0))
+		{
+			nbr *= 10;
+			trailing_zeros++;
+		}
+		format->precision = (trailing_zeros == format->precision) ? 0 : format->precision;
+	}
 }
 
 //what about negative 0?
@@ -136,7 +146,7 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 	char			sign;
 	int				show_dot;
 
-	format->precision = (format->precision < 0) ? 6 : format->precision;
+//	format->precision = (format->precision < 0) ? 6 : format->precision;
 	fill = (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 			? '0' : ' ';
 	nbr = (ft_strcmp(format->len, "L") == 0)
@@ -146,7 +156,9 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 	sign = (nbr < 0) ? '-' : sign;
 	nbr = (nbr < 0) ? nbr * -1 : nbr;
 	if (format->conversion == 'g' || format->conversion == 'G')
-		convert_g_to_ef(format, nbr);
+		convert_g_to_ef(format, nbr, (format->precision < 0));
+	else if (format->precision < 0)
+		format->precision = 6;
 	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0) ? 1 : 0; //'#' for %gG?
 	format->min_wd -= (format->precision + show_dot + (sign != '\0'));
 	format->min_wd -= (format->conversion == 'f' || format->conversion == 'F')
