@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 16:06:20 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/05 16:13:29 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static void		convert_g_to_ef(t_format *format, long double nbr, int no_precision
 	if (no_precision)
 	{
 		format->precision = 0;
-		while (((int)nbr % 10) != 0 && ++(format->precision))
+		while (((int)nbr % 10) != 0 && ((int)(nbr / 10) % 10 != 9) && ++(format->precision))
 			nbr *= 10;	
 	}
 	else 
