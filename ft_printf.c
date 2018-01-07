@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 13:55:08 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 21:24:20 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ static int		conversion(t_format *format, va_list ap, int *count)
 	else if (c == 'n')
 		*(va_arg(ap, int *)) = *count; //need to incorporate length modifiers?
 	else if (c == 'f' || c == 'F' || c == 'e' || c == 'E' || c == 'g' || c == 'G')
-		convert_ef(format, ap, count);
-//	else if (c == 'e' || c == 'E')
-//		convert_e(format, ap, count);
+		convert_efg(format, ap, count);
 	return (0);
 }
 
