@@ -6,12 +6,12 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 17:09:06 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 17:28:36 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h> //delete me!!
 static void		put_fnbr(t_format *format, int *ct, long double nbr, int is_g)
 {
 	int			put_nbr_ct;
@@ -21,9 +21,13 @@ static void		put_fnbr(t_format *format, int *ct, long double nbr, int is_g)
 
 	flag = 0;
 	tmp = nbr * ft_power(10, format->precision);
-	if ((int)(tmp * 10) % 10 >= 5)
+/*	if ((int)(tmp * 10) % 10 >= 5)
+	{
+		printf("nbr is %Lf, tmp is %Lf and tmp * 10 mod 10 is %d\n", nbr, tmp, (int)(tmp *10) % 10);
 		nbr += 0.5 / ft_power(10, format->precision);
-	if (is_g)
+		printf("nbr is now %Lf\n", nbr);
+	}
+*/	if (is_g)
 	{
 		while (((int)tmp % 10 == 0 || ((int)tmp % 10 == 9
 						&& (int)(tmp / 10) % 10 == 9)) && format->precision--)
@@ -31,6 +35,13 @@ static void		put_fnbr(t_format *format, int *ct, long double nbr, int is_g)
 		if ((int)tmp % 10 == 9 && (int)(tmp / 10) % 10 == 1)
 			format->precision--;
 	}
+	tmp = nbr * ft_power(10, format->precision);
+//	if ((int)(tmp * 10) % 10 >= 5)
+//	{
+//		printf("nbr is %Lf, tmp is %Lf and tmp * 10 is %Lf mod 10 is %d\n", nbr, tmp, tmp * 10, (int)(tmp * 10) % 10);
+		nbr += 0.5 / ft_power(10, format->precision);
+//		printf("nbr is now %Lf\n", nbr);
+//	}
 	*ct += ft_digits((unsigned long long)nbr, 10) - 1;
 	put_nbr_ct = format->precision + 1;
 	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0) ? 1 : 0;
