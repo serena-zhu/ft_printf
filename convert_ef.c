@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 17:28:36 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 17:46:12 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ static void		put_fnbr(t_format *format, int *ct, long double nbr, int is_g)
 			format->precision--;
 	}
 	tmp = nbr * ft_power(10, format->precision);
-//	if ((int)(tmp * 10) % 10 >= 5)
+//	if ((int)(tmp * 10) % 10 >= 0)
 //	{
 //		printf("nbr is %Lf, tmp is %Lf and tmp * 10 is %Lf mod 10 is %d\n", nbr, tmp, tmp * 10, (int)(tmp * 10) % 10);
+//		printf("precision is %d and adding this to nbr %f\n", format->precision, 0.5/ft_power(10, format->precision));
 		nbr += 0.5 / ft_power(10, format->precision);
 //		printf("nbr is now %Lf\n", nbr);
 //	}
@@ -48,7 +49,7 @@ static void		put_fnbr(t_format *format, int *ct, long double nbr, int is_g)
 	while (put_nbr_ct-- > 0 && ++(*ct))
 	{
 		ft_putnbr_base(nbr, 10, 0);
-		nbr = (nbr - (int)nbr) * 10;
+		nbr = (nbr - (unsigned long long)nbr) * 10;
 		if (!flag && show_dot && ++(*ct) && (flag = 1))
 			ft_putchar('.');
 	}
