@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 22:05:05 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 23:25:07 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,13 @@ int				ft_printf(const char *s, ...)
 					|| format.conversion == 'C')
 				format.len[0] = 'l';
 			conversion(&format, ap, &count);
+		}
+		else if (s[i] == '{')
+		{
+			set_color(s, &i);
+			//convert colors	
+			//print '{' if no closing bracket
+			//prints in default color if color entered is not supported
 		}
 		else
 			count += write(1, &s[i++], 1);
