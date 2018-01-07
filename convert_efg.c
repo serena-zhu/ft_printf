@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 21:23:22 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 21:23:25 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 21:31:07 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ static int		nbr_processes(t_format *format, int *ct, long double *nbr)
 	return (move_dot);
 }
 
-void			set_fill_sign(t_format *format, long double *nbr, char *fill,
-																char *sign)
+static void		set_fill_sign(t_format *format, long double *nbr,
+													char *fill, char *sign)
 {
 	*fill = (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 				? '0' : ' ';
@@ -101,7 +101,7 @@ void			set_fill_sign(t_format *format, long double *nbr, char *fill,
 	*nbr = (*nbr < 0) ? (*nbr) * -1 : *nbr;
 }
 
-void			convert_ef(t_format *format, va_list ap, int *ct)
+void			convert_efg(t_format *format, va_list ap, int *ct)
 {
 	long double		nbr;
 	char			fill;
