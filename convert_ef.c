@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 20:19:43 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 20:20:40 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ void			convert_ef(t_format *format, va_list ap, int *ct)
 	*ct = ft_digits((unsigned long long)nbr, 10) + format->precision + show_dot;
 	if (format->conversion == 'e' || format->conversion == 'E')
 		*ct += (2 + ft_digits(move_dot, 10) + (move_dot < 10));	
-	printf("count is now %d\n", *ct);
 	format->min_wd -= *ct;
 	if (fill == '0' && sign && ++(*ct))
 		ft_putchar(sign);
