@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 17:46:12 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 18:33:01 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,22 @@ static void		put_fnbr(t_format *format, int *ct, long double nbr, int is_g)
 		nbr += 0.5 / ft_power(10, format->precision);
 		printf("nbr is now %Lf\n", nbr);
 	}
-*/	if (is_g)
+*/	if (is_g) //this gets rid of trailing zeros
 	{
 		while (((int)tmp % 10 == 0 || ((int)tmp % 10 == 9
 						&& (int)(tmp / 10) % 10 == 9)) && format->precision--)
 			tmp /= 10;
 		if ((int)tmp % 10 == 9 && (int)(tmp / 10) % 10 == 1)
 			format->precision--;
+		format->precision = (format->precision < 0) ? 0 : format->precision;
 	}
 	tmp = nbr * ft_power(10, format->precision);
 //	if ((int)(tmp * 10) % 10 >= 0)
 //	{
 //		printf("nbr is %Lf, tmp is %Lf and tmp * 10 is %Lf mod 10 is %d\n", nbr, tmp, tmp * 10, (int)(tmp * 10) % 10);
 //		printf("precision is %d and adding this to nbr %f\n", format->precision, 0.5/ft_power(10, format->precision));
-		nbr += 0.5 / ft_power(10, format->precision);
+		if (format->precision >= 0)
+			nbr += 0.5 / ft_power(10, format->precision);
 //		printf("nbr is now %Lf\n", nbr);
 //	}
 	*ct += ft_digits((unsigned long long)nbr, 10) - 1;
