@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 21:23:22 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 21:31:07 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 22:06:50 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,14 @@ void			convert_efg(t_format *format, va_list ap, int *ct)
 	*ct = ft_digits((unsigned long long)nbr, 10) + format->precision + show_dot;
 	if (format->conversion == 'e' || format->conversion == 'E')
 		*ct += (2 + ft_digits(move_dot, 10) + (move_dot < 10));
-	format->min_wd -= *ct;
+	format->min_w -= *ct;
 	if (fill == '0' && sign && ++(*ct))
 		ft_putchar(sign);
-	while (!(ft_haschar(format->flag, '-')) && format->min_wd-- > 0 && ++(*ct))
+	while (!(ft_haschar(format->flag, '-')) && format->min_w-- > 0 && ++(*ct))
 		ft_putchar(fill);
 	if (fill == ' ' && sign && ++(*ct))
 		ft_putchar(sign);
 	put_nbr_ef(format, nbr, move_dot);
-	while ((ft_haschar(format->flag, '-') && format->min_wd-- > 0 && ++(*ct)))
+	while ((ft_haschar(format->flag, '-') && format->min_w-- > 0 && ++(*ct)))
 		ft_putchar(fill);
 }

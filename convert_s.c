@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 16:11:23 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/03 20:12:14 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 22:07:18 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void			convert_s(t_format *format, va_list ap, int *count, int is_null)
 		word_length = ft_strlen(str);
 	trim = (format->precision > 0 && format->precision < word_length) ? 1 : 0;
 	*count += (trim) ? format->precision : word_length;
-	format->min_wd -= (trim) ? format->precision : word_length;
-	while (!left_adjust && format->min_wd-- > 0 && ++(*count))
+	format->min_w -= (trim) ? format->precision : word_length;
+	while (!left_adjust && format->min_w-- > 0 && ++(*count))
 		ft_putchar((ft_haschar(format->flag, '0') && !left_adjust) ? '0' : ' ');
 	if (is_null)
 		print_null(format, trim);
@@ -54,6 +54,6 @@ void			convert_s(t_format *format, va_list ap, int *count, int is_null)
 		ft_putchar(*str++);
 	if (!trim && !is_null)
 		ft_putstr(str);
-	while (left_adjust && format->min_wd-- > 0 && ++(*count))
+	while (left_adjust && format->min_w-- > 0 && ++(*count))
 		ft_putchar(' ');
 }

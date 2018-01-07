@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 11:48:40 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/03 20:10:35 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 22:07:54 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static char		processes(t_format *format, unsigned long long *nbr,
 	fill = ' ';
 	if (!(alt_form_count = 0) && ft_haschar(format->flag, '#') && *nbr != 0)
 		alt_form_count = (base == 16) ? 2 : (base == 8);
-	format->min_wd -= (ft_digits(*nbr, base) + alt_form_count);
+	format->min_w -= (ft_digits(*nbr, base) + alt_form_count);
 	*count += (ft_digits(*nbr, base) + alt_form_count);
 	if (format->precision > 0)
 	{
 		if ((format->precision -= ft_digits(*nbr, base)) > 0)
-			format->min_wd -= format->precision;
+			format->min_w -= format->precision;
 	}
 	else if (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 	{
@@ -64,7 +64,7 @@ void			convert_xou(t_format *format, va_list ap, int *ct)
 	base = (is_u) ? 10 : base;
 	if (!skip_nbr)
 		fill = processes(format, &nbr, ct, base);
-	while (!(ft_haschar(format->flag, '-')) && format->min_wd-- > 0 && ++(*ct))
+	while (!(ft_haschar(format->flag, '-')) && format->min_w-- > 0 && ++(*ct))
 		ft_putchar(fill);
 	if (!is_u && fill == ' ' && ft_haschar(format->flag, '#') && nbr != 0)
 		alternate_form(format);
@@ -72,6 +72,6 @@ void			convert_xou(t_format *format, va_list ap, int *ct)
 		ft_putchar('0');
 	if (!skip_nbr)
 		ft_putnbr_base(nbr, base, format->conversion == 'X');
-	while (ft_haschar(format->flag, '-') && format->min_wd-- > 0 && ++(*ct))
+	while (ft_haschar(format->flag, '-') && format->min_w-- > 0 && ++(*ct))
 		ft_putchar(fill);
 }

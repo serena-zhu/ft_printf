@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 21:24:20 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 22:05:05 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ static int		conversion(t_format *format, va_list ap, int *count)
 	else if (c == 'p')
 		convert_p(format, ap, count);
 	else if (c == 'n')
-		*(va_arg(ap, int *)) = *count; //need to incorporate length modifiers?
-	else if (c == 'f' || c == 'F' || c == 'e' || c == 'E' || c == 'g' || c == 'G')
+		*(va_arg(ap, unsigned long long *)) = *count;
+	else if (c == 'f' || c == 'F' || c == 'e' || c == 'E'
+								|| c == 'g' || c == 'G')
 		convert_efg(format, ap, count);
 	return (0);
 }
@@ -91,7 +92,8 @@ static void		occupy_len(const char *s, int *i, t_format *format, int replace)
 	}
 }
 
-static void		occupy_format(const char *s, int *i, t_format *format, va_list ap)
+static void		occupy_format(const char *s, int *i, t_format *format,
+																va_list ap)
 {
 	int j;
 
@@ -100,18 +102,20 @@ static void		occupy_format(const char *s, int *i, t_format *format, va_list ap)
 	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
 			|| s[*i] == ' ')
 		format->flag[j++] = s[(*i)++];
-	format->min_wd = (s[*i] >= '0' && s[*i] <= '9') ? ft_atoi(&s[*i]) : -1;
+	format->min_w = (s[*i] >= '0' && s[*i] <= '9') ? ft_atoi(&s[*i]) : -1;
 	while (s[*i] >= '0' && s[*i] <= '9')
 		(*i)++;
-	format->min_wd = (s[*i] == '*' && (*i)++) ? va_arg(ap, int) : format->min_wd;
+	format->min_w = (s[*i] == '*' && (*i)++) ? va_arg(ap, int) : format->min_w;
 	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
 			|| s[*i] == ' ')
 		format->flag[j++] = s[(*i)++];
 	while (j < 5)
 		format->flag[j++] = '\0';
-	format->precision = (s[*i] == '.') ? 0 : -1; //what about star precision?
+	format->precision = (s[*i] == '.') ? 0 : -1;
 	format->precision = (s[*i] == '.' && s[++(*i)] >= '0' && s[*i] <= '9')
 						? ft_atoi(&s[*i]) : format->precision;
+	format->precision = (s[*i] == '*' && ++(*i))
+						? va_arg(ap, int) : format->precision;
 	while (s[*i] >= '0' && s[*i] <= '9')
 		(*i)++;
 	occupy_len(s, i, format, 1);

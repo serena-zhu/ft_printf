@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:00:45 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 21:20:48 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 22:05:39 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 typedef struct		s_format
 {
 	char			flag[5];
-	int				min_wd;
+	int				min_w;
 	int				precision;
 	char			len[3];
 	char			conversion;
