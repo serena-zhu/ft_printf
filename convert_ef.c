@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 21:28:15 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 20:20:40 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 20:27:57 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ static void		put_nbr(t_format *format, long double nbr, int move_dot)
 	char	exp;
 
 	put_nbr_ct = format->precision + 1;
+	exp = (nbr >= 1 || nbr == 0) ? '+' : '-';
 	nbr += (format->precision >= 0) ? 0.5 / ft_power(10, format->precision) : 0;	
 //	*ct += ft_digits((unsigned long long)nbr, 10) - 1;
 	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0) ? 1 : 0;
 	flag = 0;
-	exp = (nbr >= 1 || nbr == 0) ? '+' : '-';
+//	exp = (nbr >= 1 || nbr == 0) ? '+' : '-';
 	while (put_nbr_ct-- > 0) //need to get rid of count in entire function
 	{
 		ft_putnbr_base(nbr, 10, 0);
@@ -66,12 +67,10 @@ static void		convert_g_to_ef(t_format *format, int move_dot, int less_than_1)
 static int		nbr_processes(t_format *format, int *ct, long double *nbr)//, int print)
 {
 	int			move_dot;
-	char		e;
 	long double	tmp;
 	int			is_g;
 
 	move_dot = 0;
-	e = (*nbr >= 1 || *nbr == 0) ? '+' : '-';
 	tmp = *nbr;
 	is_g = (format->conversion == 'g' || format->conversion == 'G') ? 1 : 0;
 	if (format->conversion != 'f' && format->conversion != 'F')
