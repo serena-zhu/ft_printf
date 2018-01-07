@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:00:45 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 12:33:29 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/06 21:20:48 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void				convert_s(t_format *format, va_list ap, int *count,
 void				convert_ws(t_format *format, va_list ap, int *count);
 void				convert_c(t_format *format, va_list ap, int *count,
 																int has_l_mod);
-void				convert_ef(t_format *format, va_list ap, int *count);
+void				put_nbr_ef(t_format *format, long double nbr, int move_dot);
+void				convert_efg(t_format *format, va_list ap, int *count);
 int					ft_printf(const char *s, ...);
 
 #endif
