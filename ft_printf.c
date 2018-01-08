@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/08 14:54:10 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/08 14:56:33 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ static void		occupy_conversion(const char *s, int *i, t_format *format)
 				(*i)++;
 		}
 	}
-	if (format.conversion == 'D' || format.conversion == 'O'
-			|| format.conversion == 'U' || format.conversion == 'S'
-			|| format.conversion == 'c')
-		format.len[0] = 'l';
+	if (format->conversion == 'D' || format->conversion == 'O'
+			|| format->conversion == 'U' || format->conversion == 'S'
+			|| format->conversion == 'c')
+		format->len[0] = 'l';
 }
 
 /*
