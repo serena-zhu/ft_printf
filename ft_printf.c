@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 23:25:07 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/08 14:54:10 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,17 @@ static void		occupy_conversion(const char *s, int *i, t_format *format)
 	{
 		format->conversion = '\0';
 		if ((s[*i] == 'l' && format->len[0] == 'l')
-				|| (s[*i] == 'h' && format->len[0] == 'h'))
+			|| (s[*i] == 'h' && format->len[0] == 'h'))
 		{
 			(*i)++;
 			while (s[*i] != '\0')
 				(*i)++;
 		}
 	}
+	if (format.conversion == 'D' || format.conversion == 'O'
+			|| format.conversion == 'U' || format.conversion == 'S'
+			|| format.conversion == 'c')
+		format.len[0] = 'l';
 }
 
 /*
@@ -138,22 +142,18 @@ int				ft_printf(const char *s, ...)
 		{
 			i++;
 			occupy_format(s, &i, &format, ap);
-			if (format.conversion == 'D' || format.conversion == 'O'
+/*			if (format.conversion == 'D' || format.conversion == 'O'
 					|| format.conversion == 'U' || format.conversion == 'S'
 					|| format.conversion == 'C')
 				format.len[0] = 'l';
-			conversion(&format, ap, &count);
+*/			conversion(&format, ap, &count);
 		}
 		else if (s[i] == '{')
-		{
 			set_color(s, &i);
-			//convert colors	
-			//print '{' if no closing bracket
-			//prints in default color if color entered is not supported
-		}
 		else
 			count += write(1, &s[i++], 1);
 	}
 	va_end(ap);
+	ft_putstr("\x1B[39m");
 	return (count);
 }
