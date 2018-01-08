@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/08 14:56:33 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/08 14:58:00 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,6 @@ int				ft_printf(const char *s, ...)
 			count += write(1, &s[i++], 1);
 	}
 	va_end(ap);
-	ft_putstr("\x1B[39m");
+//	ft_putstr("\x1B[39m");
 	return (count);
 }
