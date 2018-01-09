@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 11:48:40 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 09:41:36 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 12:50:25 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,17 @@ static char		processes(t_format *format, unsigned long long *nbr,
 {
 	char	fill;
 	int		alt_form_count;
+	int		digits;
 
 	fill = ' ';
+	digits = ft_digits(*nbr, base);
 	if (!(alt_form_count = 0) && ft_haschar(format->flag, '#') && *nbr != 0)
 		alt_form_count = (base == 16) ? 2 : (base == 8);
-	format->min_w -= (ft_digits(*nbr, base) + alt_form_count);
-	*count += (ft_digits(*nbr, base) + alt_form_count);
+	format->min_w -= (digits + alt_form_count);
+	*count += (digits + alt_form_count);
+	if (ft_haschar(format->flag, '\'') && (format->conversion == 'u'
+			|| format->conversion == 'U'))
+		*count += digits / 3;
 	if (format->precision > 0)
 	{
 		if ((format->precision -= ft_digits(*nbr, base)) > 0)
@@ -62,8 +67,7 @@ void			convert_xou(t_format *format, va_list ap, int *ct)
 	is_u = (format->conversion == 'u' || format->conversion == 'U') ? 1 : 0;
 	base = (format->conversion == 'x' || format->conversion == 'X') ? 16 : 8;
 	base = (is_u) ? 10 : base;
-	if (!skip_nbr)
-		fill = processes(format, &nbr, ct, base);
+	fill = (!skip_nbr) ? processes(format, &nbr, ct, base) : fill;
 	while (!(ft_haschar(format->flag, '-')) && format->min_w-- > 0 && ++(*ct))
 		ft_putchar(fill);
 	if (!is_u && fill == ' ' && ft_haschar(format->flag, '#') && nbr != 0)
@@ -71,7 +75,8 @@ void			convert_xou(t_format *format, va_list ap, int *ct)
 	while (format->precision-- > 0 && ++(*ct))
 		ft_putchar('0');
 	if (!skip_nbr)
-		ft_putnbr_base(nbr, base, format->conversion == 'X', 0);
+		ft_putnbr_base(nbr, base, format->conversion == 'X', is_u
+			&& ft_haschar(format->flag, '\''));
 	while (ft_haschar(format->flag, '-') && format->min_w-- > 0 && ++(*ct))
 		ft_putchar(fill);
 }
