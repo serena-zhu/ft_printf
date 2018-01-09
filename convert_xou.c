@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 11:48:40 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 12:50:25 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 14:16:27 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static char		processes(t_format *format, unsigned long long *nbr,
 	digits = ft_digits(*nbr, base);
 	if (!(alt_form_count = 0) && ft_haschar(format->flag, '#') && *nbr != 0)
 		alt_form_count = (base == 16) ? 2 : (base == 8);
-	format->min_w -= (digits + alt_form_count);
 	*count += (digits + alt_form_count);
-	if (ft_haschar(format->flag, '\'') && (format->conversion == 'u'
-			|| format->conversion == 'U'))
+	if (*nbr >= 1000 && ft_haschar(format->flag, '\'')
+			&& (format->conversion == 'u' || format->conversion == 'U'))
 		*count += digits / 3;
+	format->min_w -= *count;
 	if (format->precision > 0)
 	{
 		if ((format->precision -= ft_digits(*nbr, base)) > 0)

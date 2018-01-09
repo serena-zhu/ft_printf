@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 21:23:22 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 12:35:12 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 14:24:09 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int		nbr_processes(t_format *format, int *ct, long double *nbr)
 			format->precision--;
 		format->precision = (format->precision < 0) ? 0 : format->precision;
 	}
-	if (ft_haschar(format->flag, '\''))
+	if (ft_haschar(format->flag, '\'') && *nbr >= 1000)
 		*ct += (ft_digits(*nbr, 10) / 3);
 	return (move_dot);
 }
@@ -116,7 +116,7 @@ void			convert_efg(t_format *format, va_list ap, int *ct)
 	set_fill_sign(format, &nbr, &fill, &sign);
 	move_dot = nbr_processes(format, ct, &nbr);
 	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0);
-	*ct += ft_digits(nbr, 10) + format->precision + show_dot;
+	*ct += ft_digits(nbr, 10) + format->precision + show_dot + (sign != '\0');
 	if (format->conversion == 'e' || format->conversion == 'E')
 		*ct += (2 + ft_digits(move_dot, 10) + (move_dot < 10));
 	format->min_w -= *ct;
