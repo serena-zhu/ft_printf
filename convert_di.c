@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 17:37:05 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 15:49:14 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 15:51:07 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,17 @@ static char		processes(t_format *format, unsigned long long *nbr,
 {
 	int		neg;
 	char	fill;
-//	int		digits;
 
 	fill = ' ';
 	neg = is_neg_and_mod_nbr(nbr, format);
 	set_sign(sign, neg, format);
 	format->min_w -= (ft_digits(*nbr, 10) + (*sign != '\0'));
 	*count += (ft_digits(*nbr, 10) + (*sign != '\0'));
-//	digits = ft_digits(*nbr, 10);
-//	*count += (digits + (*sign != '\0'));
 	if (*nbr >= 1000 && ft_haschar(format->flag, '\''))
-	{	
-////		*count += digits / 3;
+	{
 		*count += ft_digits(*nbr, 10) / 3;
 		format->min_w -= ft_digits(*nbr, 10) / 3;
 	}
-//	format->min_w -= *count;
 	if (format->precision >= 0)
 	{
 		if ((format->precision -= ft_digits(*nbr, 10)) > 0)
