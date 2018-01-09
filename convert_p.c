@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 20:42:14 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 14:36:08 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 14:47:00 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	convert_p(t_format *format, va_list ap, int *count)
 
 	nbr = va_arg(ap, unsigned long long);
 	*count += (ft_digits(nbr, 16) + 2);
-	format->min_w -= (ft_digits(nbr, 16) + 2);
+	format->min_w -= *count;
 	left_adjusted = ft_haschar(format->flag, '-');
 	while (!left_adjusted && format->min_w-- > 0 && ++(*count))
 		ft_putchar(' ');
