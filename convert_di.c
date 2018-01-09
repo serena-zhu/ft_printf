@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 17:37:05 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 15:21:53 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 15:29:42 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		set_sign(char *sign, int neg, t_format *format)
 	if (neg)
 	{//
 		*sign = '-';
-		format->min_w--; //
+//		format->min_w--; //
 	} //
 	else
 	{
