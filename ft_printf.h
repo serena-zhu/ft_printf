@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:00:45 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/08 16:37:46 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 10:42:37 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef struct		s_format
 {
-	char			flag[5];
+	char			flag[6];
 	int				min_w;
 	int				precision;
 	char			len[3];
@@ -32,7 +32,8 @@ int					ft_digits(unsigned long long nbr, int base);
 int					ft_haschar(const char *str, const char c);
 int					ft_power(int nbr, int power);
 unsigned long long	process_nbr(unsigned long long nbr, t_format *format);
-void				ft_putnbr_base(unsigned long long n, int base, int cap);
+void				ft_putnbr_base(unsigned long long n, int base, int cap,
+																int delimit);
 void				convert_xou(t_format *format, va_list ap, int *count);
 void				convert_di(t_format *format, va_list ap, int *count);
 void				convert_p(t_format *format, va_list ap, int *count);

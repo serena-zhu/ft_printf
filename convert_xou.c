@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 11:48:40 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 22:07:54 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 09:41:36 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			convert_xou(t_format *format, va_list ap, int *ct)
 	while (format->precision-- > 0 && ++(*ct))
 		ft_putchar('0');
 	if (!skip_nbr)
-		ft_putnbr_base(nbr, base, format->conversion == 'X');
+		ft_putnbr_base(nbr, base, format->conversion == 'X', 0);
 	while (ft_haschar(format->flag, '-') && format->min_w-- > 0 && ++(*ct))
 		ft_putchar(fill);
 }

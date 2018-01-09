@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 20:42:14 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 22:10:35 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 09:43:43 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	convert_p(t_format *format, va_list ap, int *count)
 	while (!left_adjusted && format->min_w-- > 0 && ++(*count))
 		ft_putchar(' ');
 	ft_putstr("0x");
-	ft_putnbr_base(nbr, 16, 0);
+	ft_putnbr_base(nbr, 16, 0, 0);
 	while (left_adjusted && format->min_w-- > 0 && ++(*count))
 		ft_putchar(' ');
 }

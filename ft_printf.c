@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/08 16:37:56 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 09:43:33 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,14 @@ static void		occupy_format(const char *s, int *i, t_format *format,
 	j = 0;
 	occupy_len(s, i, format, 0);
 	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
-			|| s[*i] == ' ')
+			|| s[*i] == ' ' || s[*i] == '\'')
 		format->flag[j++] = s[(*i)++];
 	format->min_w = (s[*i] >= '0' && s[*i] <= '9') ? ft_atoi(&s[*i]) : -1;
 	while (s[*i] >= '0' && s[*i] <= '9')
 		(*i)++;
 	format->min_w = (s[*i] == '*' && (*i)++) ? va_arg(ap, int) : format->min_w;
 	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
-			|| s[*i] == ' ')
+			|| s[*i] == ' ' || s[*i] == '\'')
 		format->flag[j++] = s[(*i)++];
 	while (j < 5)
 		format->flag[j++] = '\0';

@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 17:37:05 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/08 16:49:57 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 10:40:56 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ void			convert_di(t_format *format, va_list ap, int *count)
 		ft_putchar(sign);
 	while (format->precision-- > 0 && ++(*count))
 		ft_putchar('0');
-	if (!zero_nbr_precision)
-		ft_putnbr_base(nbr, 10, 0);
+	if (!zero_nbr_precision && (*count += ft_haschar(format->flag, '\'')
+			* ft_digits(nbr, 10) / 3))
+		ft_putnbr_base(nbr, 10, 0, ft_haschar(format->flag, '\''));
 	while (ft_haschar(format->flag, '-') && format->min_w-- > 0
 			&& ++(*count))
 		ft_putchar(fill);
