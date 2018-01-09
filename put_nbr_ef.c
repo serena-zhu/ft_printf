@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 20:41:07 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 09:46:45 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 10:47:23 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		put_nbr_ef(t_format *format, long double nbr, int move_dot)
 	flag = 0;
 	while (put_nbr_ct-- > 0)
 	{
-		ft_putnbr_base(nbr, 10, 0, 0);
+		ft_putnbr_base(nbr, 10, 0, (!flag && ft_haschar(format->flag, '\'')));
 		nbr = (nbr - (unsigned long long)nbr) * 10;
 		if (!flag && show_dot && (flag = 1))
 			ft_putchar('.');
