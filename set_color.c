@@ -6,57 +6,55 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 23:26:38 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/08 14:29:50 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/08 16:17:00 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void		match_light_colors(const char *color)
+static void		match_light_colors(const char *color, int *reset_text_color)
 {
-	if (ft_strcmp(color, "light red") == 0)
+	if (ft_strcmp(color, "light red") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[91m");
-	else if (ft_strcmp(color, "light green") == 0)
+	else if (ft_strcmp(color, "light green") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[92m");
-	else if (ft_strcmp(color, "light yellow") == 0)
+	else if (ft_strcmp(color, "light yellow") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[93m");
-	else if (ft_strcmp(color, "light blue") == 0)
+	else if (ft_strcmp(color, "light blue") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[94m");
-	else if (ft_strcmp(color, "light magenta") == 0)
+	else if (ft_strcmp(color, "light magenta") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[95m");
-	else if (ft_strcmp(color, "light cyan") == 0)
+	else if (ft_strcmp(color, "light cyan") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[96m");
-	else if (ft_strcmp(color, "white") == 0)
+	else if (ft_strcmp(color, "white") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[97m");
 }
 
-static void		match_colors(const char *color)
+static void		match_colors(const char *color, int *reset_text_color)
 {
-	if (ft_strcmp(color, "eoc") == 0)
-		ft_putstr("\x1B[39m");
-	else if (ft_strcmp(color, "black") == 0)
+	if (ft_strcmp(color, "black") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[30m");
-	else if (ft_strcmp(color, "red") == 0)
+	else if (ft_strcmp(color, "red") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[31m");
-	else if (ft_strcmp(color, "green") == 0)
+	else if (ft_strcmp(color, "green") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[32m");
-	else if (ft_strcmp(color, "yellow") == 0)
+	else if (ft_strcmp(color, "yellow") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[33m");
-	else if (ft_strcmp(color, "blue") == 0)
+	else if (ft_strcmp(color, "blue") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[34m");
-	else if (ft_strcmp(color, "magenta") == 0)
+	else if (ft_strcmp(color, "magenta") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[35m");
-	else if (ft_strcmp(color, "cyan") == 0)
+	else if (ft_strcmp(color, "cyan") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[36m");
-	else if (ft_strcmp(color, "white") == 0)
+	else if (ft_strcmp(color, "white") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[97m");
-	else if (ft_strcmp(color, "gray") == 0)
+	else if (ft_strcmp(color, "gray") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[90m");
 	else
-		match_light_colors(color);
+		match_light_colors(color, reset_text_color);
 }
 
-void			set_color(const char *s, int *i)
+void			set_color(const char *s, int *i, int *reset_text_color)
 {
 	int		tmp;
 	int		j;
@@ -67,18 +65,17 @@ void			set_color(const char *s, int *i)
 	color[13] = '\0';
 	while (s[tmp] != '}' && s[tmp] != '\0')
 	{
-		if (j < 13)
-		{
-			color[j] = s[tmp];
-			j++;
-		}
+		if (j < 13 && ++j)
+			color[j - 1] = s[tmp];
 		tmp++;
 	}
-	if (j < 13)
-		color[j] = '\0';
+	color[j] = (j < 13) ? '\0' : color[j];
 	if (s[tmp] == '}')
 	{
-		match_colors(color);
+		if (ft_strcmp(color, "eoc") == 0)
+			ft_putstr("\x1B[39m");
+		else
+			match_colors(color, reset_text_color);
 		(*i) = tmp + 1;
 	}
 	else if (s[(*i)++])

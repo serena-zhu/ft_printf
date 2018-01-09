@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 17:37:05 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 22:06:30 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/08 16:49:57 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int		is_neg_and_mod_nbr(unsigned long long *nbr, t_format *format)
 		*nbr = (int)(*nbr) * -1;
 	else
 		neg = 0;
-	*nbr = process_nbr(*nbr, format); // put outside of else statement?
+	*nbr = process_nbr(*nbr, format);
 	return (neg);
 }
 

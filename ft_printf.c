@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/08 14:58:00 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/08 16:37:56 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,28 +132,25 @@ int				ft_printf(const char *s, ...)
 	int			count;
 	va_list		ap;
 	t_format	format;
+	int			reset_text_color;
 
 	count = 0;
-	va_start(ap, s);
+	reset_text_color = 0;
 	i = 0;
+	va_start(ap, s);
 	while (s[i] != '\0')
 	{
-		if (s[i] == '%')
+		if (s[i] == '%' && ++i)
 		{
-			i++;
 			occupy_format(s, &i, &format, ap);
-/*			if (format.conversion == 'D' || format.conversion == 'O'
-					|| format.conversion == 'U' || format.conversion == 'S'
-					|| format.conversion == 'C')
-				format.len[0] = 'l';
-*/			conversion(&format, ap, &count);
+			conversion(&format, ap, &count);
 		}
 		else if (s[i] == '{')
-			set_color(s, &i);
+			set_color(s, &i, &reset_text_color);
 		else
 			count += write(1, &s[i++], 1);
 	}
 	va_end(ap);
-//	ft_putstr("\x1B[39m");
+	ft_putstr((reset_text_color) ? "\x1B[39m" : "");
 	return (count);
 }
