@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:00:45 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 17:36:22 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 19:14:07 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef struct		s_format
 {
-	char			flag[6];
+	char			flag[7];
 	int				min_w;
 	int				precision;
 	char			len[3];
@@ -45,7 +45,8 @@ void				convert_c(t_format *format, va_list ap, int *count,
 void				put_nbr_ef(t_format *format, long double nbr, int move_dot);
 void				convert_efg(t_format *format, va_list ap, int *count);
 void				set_color(const char *s, int *i, int *reset_text_color,
-																int * count);
+																int *count);
+int					conversion(t_format *format, va_list ap, int *count);
 int					ft_printf(const char *s, ...);
 
 #endif
