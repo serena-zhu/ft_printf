@@ -6,14 +6,14 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 23:26:38 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 17:36:56 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 18:04:57 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> //delete me!!!
+
 static int		match_light_colors(const char *color, int *reset_text_color)
-{	
+{
 	if (ft_strcmp(color, "light red") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[91m");
 	else if (ft_strcmp(color, "light green") == 0 && (*reset_text_color = 1))
@@ -71,18 +71,13 @@ void			set_color(const char *s, int *i, int *reset_text_color,
 		tmp++;
 	}
 	color[j] = (j < 13) ? '\0' : color[j];
-	if (s[tmp] == '}' && ft_strcmp(color, "eoc") == 0 && (*i = tmp + 1))
+	if (s[tmp] == '}' && ft_strcmp(color, "eoc") == 0)
+	{
 		ft_putstr("\x1B[39m");
+		*i = tmp + 1;
+	}
 	else if (s[tmp] == '}' && match_colors(color, reset_text_color))
 		*i = tmp + 1;
-/*	if (s[tmp] == '}')
-	{
-		if (ft_strcmp(color, "eoc") == 0)
-			ft_putstr("\x1B[39m");
-		else
-			match_colors(color, reset_text_color);
-		(*i) = tmp + 1;
-	}
-*/	else if (s[(*i)++] && ++(*count))
+	else if (s[(*i)++] && ++(*count))
 		ft_putchar('{');
 }

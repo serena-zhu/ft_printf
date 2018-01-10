@@ -6,39 +6,11 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 17:36:01 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 19:14:43 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static int		conversion(t_format *format, va_list ap, int *count)
-{
-	char				c;
-	int					has_l_mod;
-
-	c = format->conversion;
-	has_l_mod = (ft_strcmp(format->len, "l") == 0);
-	if ((c == 's' && has_l_mod) || c == 'S')
-		convert_ws(format, ap, count);
-	else if (c == 's')
-		convert_s(format, ap, count, 0);
-	else if (c == 'd' || c == 'D' || c == 'i')
-		convert_di(format, ap, count);
-	else if (c == 'x' || c == 'X' || c == 'o' || c == 'O'
-			|| c == 'u' || c == 'U')
-		convert_xou(format, ap, count);
-	else if (c == 'c' || c == 'C' || c == '%')
-		convert_c(format, ap, count, has_l_mod);
-	else if (c == 'p')
-		convert_p(format, ap, count);
-	else if (c == 'n')
-		*(va_arg(ap, unsigned long long *)) = *count;
-	else if (c == 'f' || c == 'F' || c == 'e' || c == 'E'
-								|| c == 'g' || c == 'G')
-		convert_efg(format, ap, count);
-	return (0);
-}
 
 static void		occupy_conversion(const char *s, int *i, t_format *format)
 {
@@ -97,6 +69,25 @@ static void		occupy_len(const char *s, int *i, t_format *format, int replace)
 }
 
 /*
+**	set_w will use absolute value of user specified min_w
+**	if the number provided by user is negative, a '-' flag is added
+*/
+
+static int		set_w(t_format *format, int *i, int *j, va_list ap)
+{
+	unsigned long long tmp;
+
+	tmp = va_arg(ap, int);
+	if ((int)tmp < 0)
+	{
+		tmp = (int)tmp * -1;
+		format->flag[(*j)++] = '-';
+	}
+	(*i)++;
+	return (tmp);
+}
+
+/*
 ** format->precision:
 ** set to -1 if there is no '.'
 ** set to 0 if there is a '.' but no number
@@ -115,11 +106,11 @@ static void		occupy_format(const char *s, int *i, t_format *format,
 	format->min_w = (s[*i] >= '0' && s[*i] <= '9') ? ft_atoi(&s[*i]) : -1;
 	while (s[*i] >= '0' && s[*i] <= '9')
 		(*i)++;
-	format->min_w = (s[*i] == '*' && (*i)++) ? va_arg(ap, int) : format->min_w;
+	format->min_w = (s[*i] == '*') ? set_w(format, i, &j, ap) : format->min_w;
 	while (s[*i] == '#' || s[*i] == '0' || s[*i] == '-' || s[*i] == '+'
 			|| s[*i] == ' ' || s[*i] == '\'')
 		format->flag[j++] = s[(*i)++];
-	while (j < 5)
+	while (j < 6)
 		format->flag[j++] = '\0';
 	format->precision = (s[*i] == '.') ? 0 : -1;
 	format->precision = (s[*i] == '.' && s[++(*i)] >= '0' && s[*i] <= '9')
