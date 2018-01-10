@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 21:23:22 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 21:33:21 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 22:44:40 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,18 @@ static int		nbr_processes(t_format *format, int *ct, long double *nbr)
 	int			move_dot;
 	long double	tmp;
 	int			is_g;
+	int			i;
 
 	move_dot = 0;
 	tmp = *nbr;
 	is_g = (format->conv == 'g' || format->conv == 'G') ? 1 : 0;
+	i = 0;
 	if (format->conv != 'f' && format->conv != 'F')
 		shift_decimal(format, nbr, &move_dot);
 	if (is_g)
 	{
-		tmp = *nbr * ft_power(10, format->prec);
+		while (i++ < format->prec)
+			tmp *= 10;
 		while (((int)tmp % 10 == 0 || ((int)tmp % 10 == 9
 						&& (int)(tmp / 10) % 10 == 9)) && format->prec--)
 			tmp /= 10;
