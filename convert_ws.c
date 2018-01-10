@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 18:35:35 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 15:37:47 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 16:19:45 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	convert_ws(t_format *format, va_list ap, int *count)
 	word_length = ft_wstrlen(wstr);
 	trim = (format->precision > 0 && format->precision < word_length) ? 1 : 0;
 	*count += (trim) ? format->precision : word_length;
-	format->min_w -= (trim)? format->precision : word_length;
+	format->min_w -= (trim) ? format->precision : word_length;
 	while (!left_adjusted && format->min_w-- > 0 && ++(*count))
 		ft_putchar(' ');
 	while (trim && format->precision-- > 0)
