@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 20:41:07 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 10:47:23 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 21:37:16 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void		put_nbr_ef(t_format *format, long double nbr, int move_dot)
 	int		flag;
 	char	exp;
 
-	put_nbr_ct = format->precision + 1;
+	put_nbr_ct = format->prec + 1;
 	exp = (nbr >= 1 || nbr == 0) ? '+' : '-';
-	nbr += (format->precision >= 0) ? 0.5 / ft_power(10, format->precision) : 0;
-	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0) ? 1 : 0;
+	nbr += (format->prec >= 0) ? 0.5 / ft_power(10, format->prec) : 0;
+	show_dot = (ft_haschar(format->flag, '#') || format->prec > 0) ? 1 : 0;
 	flag = 0;
 	while (put_nbr_ct-- > 0)
 	{
@@ -31,9 +31,9 @@ void		put_nbr_ef(t_format *format, long double nbr, int move_dot)
 		if (!flag && show_dot && (flag = 1))
 			ft_putchar('.');
 	}
-	if (format->conversion == 'e' || format->conversion == 'E')
+	if (format->conv == 'e' || format->conv == 'E')
 	{
-		ft_putchar(format->conversion);
+		ft_putchar(format->conv);
 		ft_putchar(exp);
 		if (move_dot < 10)
 			ft_putchar('0');

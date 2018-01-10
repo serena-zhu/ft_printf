@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 19:12:59 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 19:13:35 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 21:29:38 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		conversion(t_format *format, va_list ap, int *count)
 	char				c;
 	int					has_l_mod;
 
-	c = format->conversion;
+	c = format->conv;
 	has_l_mod = (ft_strcmp(format->len, "l") == 0);
 	if ((c == 's' && has_l_mod) || c == 'S')
 		convert_ws(format, ap, count);

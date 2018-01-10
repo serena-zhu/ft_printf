@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 11:48:40 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 21:11:34 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 21:39:27 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void		alternate_form(t_format *format)
 {
-	if (format->conversion == 'x')
+	if (format->conv == 'x')
 		ft_putstr("0x");
-	else if (format->conversion == 'X')
+	else if (format->conv == 'X')
 		ft_putstr("0X");
-	else if (format->conversion == 'o' || format->conversion == 'O')
+	else if (format->conv == 'o' || format->conv == 'O')
 		ft_putchar('0');
 }
 
@@ -36,12 +36,12 @@ static char		processes(t_format *format, unsigned long long *nbr,
 	*count += (digits + alt_form_count);
 	format->min_w -= (digits + alt_form_count);
 	if (*nbr >= 1000 && ft_haschar(format->flag, '\'')
-			&& (format->conversion == 'u' || format->conversion == 'U'))
+			&& (format->conv == 'u' || format->conv == 'U'))
 		format->min_w -= (*count += digits / 3) ? digits / 3 : 0;
-	if (format->precision > 0)
+	if (format->prec > 0)
 	{
-		if ((format->precision -= ((digits > 0) + (alt_form_count == 1))))
-			format->min_w -= format->precision;
+		if ((format->prec -= ((digits > 0) + (alt_form_count == 1))))
+			format->min_w -= format->prec;
 	}
 	else if (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 	{
@@ -62,20 +62,20 @@ void			convert_xou(t_format *format, va_list ap, int *ct)
 
 	fill = ' ';
 	nbr = process_nbr(va_arg(ap, unsigned long long), format);
-	skip_nbr = ((format->conversion == 'o' && ft_haschar(format->flag, '#'))
-			|| !(format->precision == 0 && nbr == 0)) ? 0 : 1;
-	is_u = (format->conversion == 'u' || format->conversion == 'U') ? 1 : 0;
-	base = (format->conversion == 'x' || format->conversion == 'X') ? 16 : 8;
+	skip_nbr = ((ft_haschar(format->flag, '#') && (format->conv == 'o'
+		|| format->conv == 'O')) || !(format->prec == 0 && nbr == 0)) ? 0 : 1;
+	is_u = (format->conv == 'u' || format->conv == 'U') ? 1 : 0;
+	base = (format->conv == 'x' || format->conv == 'X') ? 16 : 8;
 	base = (is_u) ? 10 : base;
 	fill = (!skip_nbr) ? processes(format, &nbr, ct, base) : fill;
 	while (!(ft_haschar(format->flag, '-')) && format->min_w-- > 0 && ++(*ct))
 		ft_putchar(fill);
 	if (!is_u && fill == ' ' && ft_haschar(format->flag, '#') && nbr != 0)
 		alternate_form(format);
-	while (format->precision-- > 0 && ++(*ct))
+	while (format->prec-- > 0 && ++(*ct))
 		ft_putchar('0');
 	if (!skip_nbr)
-		ft_putnbr_base(nbr, base, format->conversion == 'X', is_u
+		ft_putnbr_base(nbr, base, format->conv == 'X', is_u
 			&& ft_haschar(format->flag, '\''));
 	while (ft_haschar(format->flag, '-') && format->min_w-- > 0 && ++(*ct))
 		ft_putchar(fill);

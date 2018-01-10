@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 17:37:05 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 16:11:26 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 21:40:07 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ static char		processes(t_format *format, unsigned long long *nbr,
 	if (*nbr >= 1000 && ft_haschar(format->flag, '\''))
 	{
 		*count += ft_digits(*nbr, 10) / 3;
-		format->precision -= ft_digits(*nbr, 10) / 3;
+		format->prec -= ft_digits(*nbr, 10) / 3;
 		format->min_w -= ft_digits(*nbr, 10) / 3;
 	}
-	if (format->precision >= 0)
+	if (format->prec >= 0)
 	{
-		if ((format->precision -= ft_digits(*nbr, 10)) > 0)
-			format->min_w -= format->precision;
+		if ((format->prec -= ft_digits(*nbr, 10)) > 0)
+			format->min_w -= format->prec;
 	}
 	else if (ft_haschar(format->flag, '0') && !ft_haschar(format->flag, '-'))
 	{
@@ -89,7 +89,7 @@ void			convert_di(t_format *format, va_list ap, int *count)
 	fill = ' ';
 	sign = '\0';
 	nbr = va_arg(ap, unsigned long long);
-	zero_nbr_precision = (format->precision == 0 && nbr == 0) ? 1 : 0;
+	zero_nbr_precision = (format->prec == 0 && nbr == 0) ? 1 : 0;
 	if (!zero_nbr_precision)
 		fill = processes(format, &nbr, count, &sign);
 	while (!(ft_haschar(format->flag, '-')) && format->min_w-- > 0
@@ -97,7 +97,7 @@ void			convert_di(t_format *format, va_list ap, int *count)
 		ft_putchar(fill);
 	if (fill == ' ' && sign)
 		ft_putchar(sign);
-	while (format->precision-- > 0 && ++(*count))
+	while (format->prec-- > 0 && ++(*count))
 		ft_putchar('0');
 	if (!zero_nbr_precision)
 		ft_putnbr_base(nbr, 10, 0, ft_haschar(format->flag, '\''));

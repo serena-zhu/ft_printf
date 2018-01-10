@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 20:59:18 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 21:42:27 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static void		occupy_conversion(const char *s, int *i, t_format *format)
 			|| c == 'X' || c == 'c' || c == 'C' || c == '%' || c == 'n'
 			|| c == 'f' || c == 'F' || c == 'e' || c == 'E' || c == 'g'
 			|| c == 'G')
-		format->conversion = s[(*i)++];
+		format->conv = s[(*i)++];
 	else
 	{
-		format->conversion = '\0';
+		format->conv = '\0';
 		if ((s[*i] == 'l' && format->len[0] == 'l')
 			|| (s[*i] == 'h' && format->len[0] == 'h'))
 		{
@@ -34,9 +34,9 @@ static void		occupy_conversion(const char *s, int *i, t_format *format)
 				(*i)++;
 		}
 	}
-	if (format->conversion == 'D' || format->conversion == 'O'
-			|| format->conversion == 'U' || format->conversion == 'S'
-			|| format->conversion == 'c')
+	if (format->conv == 'D' || format->conv == 'O'
+			|| format->conv == 'U' || format->conv == 'S'
+			|| format->conv == 'c')
 		format->len[0] = 'l';
 }
 
@@ -112,11 +112,11 @@ static void		occupy_format(const char *s, int *i, t_format *format,
 		format->flag[j++] = s[(*i)++];
 	while (j < 6)
 		format->flag[j++] = '\0';
-	format->precision = (s[*i] == '.') ? 0 : -1;
-	format->precision = (s[*i] == '.' && s[++(*i)] >= '0' && s[*i] <= '9')
-						? ft_atoi(&s[*i]) : format->precision;
-	format->precision = (s[*i] == '*' && ++(*i))
-						? va_arg(ap, int) : format->precision;
+	format->prec = (s[*i] == '.') ? 0 : -1;
+	format->prec = (s[*i] == '.' && s[++(*i)] >= '0' && s[*i] <= '9')
+						? ft_atoi(&s[*i]) : format->prec;
+	format->prec = (s[*i] == '*' && ++(*i))
+						? va_arg(ap, int) : format->prec;
 	while (s[*i] >= '0' && s[*i] <= '9')
 		(*i)++;
 	occupy_len(s, i, format, 1);

@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 21:23:22 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 18:11:46 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 21:33:21 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 static void		convert_g_to_ef(t_format *format, int move_dot, int less_than_1)
 {
-	format->precision = (format->precision == 0) ? 1 : format->precision;
+	format->prec = (format->prec == 0) ? 1 : format->prec;
 	if (!less_than_1)
 	{
-		format->conversion += (move_dot >= format->precision)
+		format->conv += (move_dot >= format->prec)
 								? ('e' - 'g') : ('f' - 'g');
-		if (format->conversion == 'f' || format->conversion == 'F')
-			format->precision -= (move_dot + 1);
+		if (format->conv == 'f' || format->conv == 'F')
+			format->prec -= (move_dot + 1);
 	}
 	else
-		format->conversion += (move_dot > 4) ? ('e' - 'g') : ('f' - 'g');
-	if (format->conversion == 'e' || format->conversion == 'E')
-		format->precision -= 1;
+		format->conv += (move_dot > 4) ? ('e' - 'g') : ('f' - 'g');
+	if (format->conv == 'e' || format->conv == 'E')
+		format->prec -= 1;
 }
 
 /*
@@ -41,10 +41,10 @@ static void		shift_decimal(t_format *format, long double *nbr, int *move_dot)
 	{
 		while (*nbr >= 10 && ++(*move_dot))
 			*nbr /= 10;
-		if (format->conversion == 'g' || format->conversion == 'G')
+		if (format->conv == 'g' || format->conv == 'G')
 		{
 			convert_g_to_ef(format, *move_dot, 0);
-			*nbr = (format->conversion == 'f' || format->conversion == 'F')
+			*nbr = (format->conv == 'f' || format->conv == 'F')
 					? tmp : *nbr;
 		}
 	}
@@ -52,10 +52,10 @@ static void		shift_decimal(t_format *format, long double *nbr, int *move_dot)
 	{
 		while (tmp < 1 && ++(*move_dot))
 			tmp *= 10;
-		if (format->conversion == 'g' || format->conversion == 'G')
+		if (format->conv == 'g' || format->conv == 'G')
 		{
 			convert_g_to_ef(format, *move_dot, 1);
-			*nbr = (format->conversion == 'e' || format->conversion == 'E')
+			*nbr = (format->conv == 'e' || format->conv == 'E')
 					? tmp : *nbr;
 		}
 	}
@@ -73,18 +73,18 @@ static int		nbr_processes(t_format *format, int *ct, long double *nbr)
 
 	move_dot = 0;
 	tmp = *nbr;
-	is_g = (format->conversion == 'g' || format->conversion == 'G') ? 1 : 0;
-	if (format->conversion != 'f' && format->conversion != 'F')
+	is_g = (format->conv == 'g' || format->conv == 'G') ? 1 : 0;
+	if (format->conv != 'f' && format->conv != 'F')
 		shift_decimal(format, nbr, &move_dot);
 	if (is_g)
 	{
-		tmp = *nbr * ft_power(10, format->precision);
+		tmp = *nbr * ft_power(10, format->prec);
 		while (((int)tmp % 10 == 0 || ((int)tmp % 10 == 9
-						&& (int)(tmp / 10) % 10 == 9)) && format->precision--)
+						&& (int)(tmp / 10) % 10 == 9)) && format->prec--)
 			tmp /= 10;
 		if ((int)tmp % 10 == 9 && (int)(tmp / 10) % 10 == 1)
-			format->precision--;
-		format->precision = (format->precision < 0) ? 0 : format->precision;
+			format->prec--;
+		format->prec = (format->prec < 0) ? 0 : format->prec;
 	}
 	if (ft_haschar(format->flag, '\'') && *nbr >= 1000)
 		*ct += (ft_digits(*nbr, 10) / 3);
@@ -110,14 +110,14 @@ void			convert_efg(t_format *format, va_list ap, int *ct)
 	int				move_dot;
 	int				show_dot;
 
-	format->precision = (format->precision < 0) ? 6 : format->precision;
+	format->prec = (format->prec < 0) ? 6 : format->prec;
 	nbr = (ft_strcmp(format->len, "L") == 0)
 			? va_arg(ap, long double) : va_arg(ap, double);
 	set_fill_sign(format, &nbr, &fill, &sign);
 	move_dot = nbr_processes(format, ct, &nbr);
-	show_dot = (ft_haschar(format->flag, '#') || format->precision > 0);
-	*ct += ft_digits(nbr, 10) + format->precision + show_dot + (sign != '\0');
-	if (format->conversion == 'e' || format->conversion == 'E')
+	show_dot = (ft_haschar(format->flag, '#') || format->prec > 0);
+	*ct += ft_digits(nbr, 10) + format->prec + show_dot + (sign != '\0');
+	if (format->conv == 'e' || format->conv == 'E')
 		*ct += (2 + ft_digits(move_dot, 10) + (move_dot < 10));
 	format->min_w -= *ct;
 	if (fill == '0' && sign)
