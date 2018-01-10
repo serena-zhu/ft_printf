@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 09:43:33 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 16:53:55 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,12 @@ static void		occupy_len(const char *s, int *i, t_format *format, int replace)
 				? s[(*i)++] : format->len[1];
 	}
 }
+
+/*
+** format->precision:
+** set to -1 if there is no '.'
+** set to 0 if there is a '.' but no number
+*/
 
 static void		occupy_format(const char *s, int *i, t_format *format,
 																va_list ap)
