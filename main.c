@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 19:21:25 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/06 23:55:57 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/10 14:35:39 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int		main(int argc, char **argv)
 {
 //	setlocale(LC_CTYPE, "");
-//	setlocale(LC_ALL, " ");
+	setlocale(LC_ALL, "");
 	if (argc > 1)
 	{
 //		unsigned long nbr;
@@ -159,8 +159,39 @@ int		main(int argc, char **argv)
 //		char long_string[] = "dlksjaflkjlksdjflksjdljrlskjlkdjflksjfjoeirusljflksj kjdflks lkskjflkdsjflskj lkjflkjflksdj lskjflksjeoirueoijflksdjf lkslfjlksdfjlksdoiweurosejflksdfj lskjfisyoeiwrsljflkdsjf lksdjflsoeirulskjflksdj flksdjflksdjf oirsijflksjklkdsjflkdsjflkjdlfjldfjldsfjlfjlsdjfljflsdkfjlkfjlkdsfjldksjfldsjf";
 //		rtn = ft_printf("%s %hhn", long_string, &tmp);
 //		rtn = ft_printf("%*.*d", 15, 5, 658);
-//		rtn = ft_printf("%'d", 1234);
-		rtn = ft_printf("this will be{red}seeee{eoc}normal now");
+//		rtn = ft_printf("%'u", 234);
+//		rtn = ft_printf("this will be{blue} diff {eoc}and this is {light blue} light diff {eoc} normal now{");
+//		rtn = ft_printf("%'20.5d", -1250);
+//		rtn = ft_printf("%15p", &rtn);
+//		rtn = ft_printf("{%s}and this is{blue} blue {eoc}and back to normal", "");
+//		rtn = ft_printf("{%f}{%F}", -1.42, -1.42);
+//		rtn = ft_printf("{%*d}", -5, 42);
+//		rtn = ft_printf("{%S}", NULL);
+////		rtn = ft_printf("%S", L"米");
+//		rtn = ft_printf("a%Sb%sc%S", L"我", "42", L"猫");
+//		wchar_t *wstr;
+//		wstr = L"sjlkjerolkdjfks kldfjs12345 kdjfksjfd";
+//		rtn = ft_printf("%S", wstr);
+//		rtn = ft_printf("{%10R}");
+//		ft_printf("\n");
+//		rtn = ft_printf("{%*3d}", 0, 0);
+//		ft_printf("%.p, %.0p", 0, 0);
+//		rtn = ft_printf("%#.3o", 1);
+//		rtn = ft_printf("{%05.S}", L"42 c est cool");
+//		int tmp = 0xFFFF;
+//		rtn = ft_printf("{%030x}", tmp);
+//		rtn = ft_printf("%.0p, %.p", 0, 0);
+//		rtn = ft_printf("%#.O", 0);
+////		rtn = ft_printf("%-56.32g\n", 5427875454587545.2569545454); //need to debug
+//		double testnbr = 5427875454587545.2569545454;
+////		double testnbr = 5427875454587500.00;
+////		rtn = ft_printf("%-56.18g", testnbr);
+////		rtn = ft_printf("%.9g", 45789.215400500); 
+//		rtn = ft_printf("{color test %s} this is{red} red but now{green} green", "commencing:");
+		rtn = ft_printf("%0'.7d", 36887);
+//		rtn = ft_printf("%e", 123565489795465987.856);
+//		long double ldbl = -5875465854564564545554.21254;
+//		rtn = ft_printf("%Le", ldbl);
 		ft_printf("\nrtn value is: %d\n", rtn);
 //		ft_printf("tmp is %d\n", tmp);
 
@@ -217,8 +248,40 @@ int		main(int argc, char **argv)
 //		rtn = printf("%e", 0.0);
 //		rtn = printf("%s %hhn", long_string, &tmp2);
 //		rtn = printf("%*.*d", 15, 5, 658);
-		rtn = printf("%'d", 1234);
+//		rtn = printf("%'20.5d", -1250);
+//		rtn = printf("%2$d %d %d", 6, 68, 98);
+//		rtn = printf("%15p", &rtn);
+//		rtn = printf("{%f}{%F}", -1.42, -1.42);
+//		rtn = printf("{%*d}", -5, 42);
+//		rtn = printf("{%S}", NULL);
+////		rtn = printf("%S", L"米");
+//		rtn = printf("a%Sb%sc%S", L"我", "42", L"猫");
+//		rtn = printf("%S", wstr);
+//		rtn = printf("{%10R}");
+//		printf("\n");
+//		printf("{%*3d}", 0, 0);
+//		printf("{%-15Z}", 123);
+//		printf("%.p, %.0p", 0, 0);
+//		rtn = printf("%#.3o", 1);
+//		rtn = printf("{%05.S}", L"42 c est cool");
+//		rtn = printf("{%030x}", tmp);
+//		rtn = printf("%'u", 234);
+//		rtn = printf("{%05p}", 0);
+//		rtn = printf("%.0p, %.p", 0, 0);
+//		rtn = printf("%#.O", 0);
+////		rtn = printf("%-56.32g\n", 5427875454587545.2569545454);
+////		rtn = printf("%.9g", 45789.215400500);
+////		rtn = printf("%-56.18g", testnbr);
+////		rtn = printf("{color test %s} this is{red} red but now{green} green {eoc}then normal", "commencing:");
+		rtn = printf("%0'.7d", 36887);	
+//		rtn = printf("%e", 123565489795465987.856);
+//		rtn = printf("%Le", ldbl);
 		printf("\nrtn value is: %d\n", rtn);
+//		printf("-10 to power of 18 is %lld\n", ft_power(-10, 18));
+		printf("first is %.20f second is %.20f\n", 0.5/1000000000000000000, 0.5/8446744073709551616);
+//		ft_putstr("\x1B[5m");
+//		ft_putstr("this should blink\n");
+
 //		printf("size of short is %lu and size of long is %lu and size of long long is %lu and size of uintmax is %lu and size of double is %lu and size of long double is %lu and size of unsigned long long is %lu\n", sizeof(short), sizeof(long), sizeof(long long), sizeof(uintmax_t), sizeof(double), sizeof(long double), sizeof(unsigned long long));
 //		printf("tmp is %d\n", tmp2);
 //		printf("size of size_t is %lu and size of long is %lu\n", sizeof(size_t), sizeof(long));

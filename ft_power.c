@@ -6,13 +6,13 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 13:33:40 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/05 12:32:15 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/10 14:27:03 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_power(int nbr, int power)
+long long		ft_power(long long nbr, int power)
 {
 	if (power < 0)
 	{

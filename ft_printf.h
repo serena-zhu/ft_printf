@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:00:45 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 21:26:52 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/10 14:26:48 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void				ft_putwstr(const wchar_t *s);
 void				ft_putwchar(wchar_t c);
 int					ft_digits(unsigned long long nbr, int base);
 int					ft_haschar(const char *str, const char c);
-int					ft_power(int nbr, int power);
+long long			ft_power(long long nbr, int power);
 unsigned long long	process_nbr(unsigned long long nbr, t_format *format);
 void				ft_putnbr_base(unsigned long long n, int base, int cap,
 																int delimit);
