@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 15:07:42 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 16:53:55 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 17:36:01 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int				ft_printf(const char *s, ...)
 			conversion(&format, ap, &count);
 		}
 		else if (s[i] == '{')
-			set_color(s, &i, &reset_text_color);
+			set_color(s, &i, &reset_text_color, &count);
 		else
 			count += write(1, &s[i++], 1);
 	}

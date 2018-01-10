@@ -6,7 +6,7 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 11:48:40 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/09 14:16:27 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 17:06:20 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		alternate_form(t_format *format)
 		ft_putstr("0x");
 	else if (format->conversion == 'X')
 		ft_putstr("0X");
-	else if (format->conversion == 'o')
+	else if (format->conversion == 'o' || format->conversion == 'O')
 		ft_putchar('0');
 }
 

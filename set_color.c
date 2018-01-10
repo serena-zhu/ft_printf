@@ -6,14 +6,14 @@
 /*   By: yazhu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 23:26:38 by yazhu             #+#    #+#             */
-/*   Updated: 2018/01/08 16:17:00 by yazhu            ###   ########.fr       */
+/*   Updated: 2018/01/09 17:36:56 by yazhu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static void		match_light_colors(const char *color, int *reset_text_color)
-{
+#include <stdio.h> //delete me!!!
+static int		match_light_colors(const char *color, int *reset_text_color)
+{	
 	if (ft_strcmp(color, "light red") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[91m");
 	else if (ft_strcmp(color, "light green") == 0 && (*reset_text_color = 1))
@@ -28,9 +28,10 @@ static void		match_light_colors(const char *color, int *reset_text_color)
 		ft_putstr("\x1B[96m");
 	else if (ft_strcmp(color, "white") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[97m");
+	return (*reset_text_color);
 }
 
-static void		match_colors(const char *color, int *reset_text_color)
+static int		match_colors(const char *color, int *reset_text_color)
 {
 	if (ft_strcmp(color, "black") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[30m");
@@ -50,11 +51,11 @@ static void		match_colors(const char *color, int *reset_text_color)
 		ft_putstr("\x1B[97m");
 	else if (ft_strcmp(color, "gray") == 0 && (*reset_text_color = 1))
 		ft_putstr("\x1B[90m");
-	else
-		match_light_colors(color, reset_text_color);
+	return (match_light_colors(color, reset_text_color));
 }
 
-void			set_color(const char *s, int *i, int *reset_text_color)
+void			set_color(const char *s, int *i, int *reset_text_color,
+																int *count)
 {
 	int		tmp;
 	int		j;
@@ -70,7 +71,11 @@ void			set_color(const char *s, int *i, int *reset_text_color)
 		tmp++;
 	}
 	color[j] = (j < 13) ? '\0' : color[j];
-	if (s[tmp] == '}')
+	if (s[tmp] == '}' && ft_strcmp(color, "eoc") == 0 && (*i = tmp + 1))
+		ft_putstr("\x1B[39m");
+	else if (s[tmp] == '}' && match_colors(color, reset_text_color))
+		*i = tmp + 1;
+/*	if (s[tmp] == '}')
 	{
 		if (ft_strcmp(color, "eoc") == 0)
 			ft_putstr("\x1B[39m");
@@ -78,6 +83,6 @@ void			set_color(const char *s, int *i, int *reset_text_color)
 			match_colors(color, reset_text_color);
 		(*i) = tmp + 1;
 	}
-	else if (s[(*i)++])
+*/	else if (s[(*i)++] && ++(*count))
 		ft_putchar('{');
 }
