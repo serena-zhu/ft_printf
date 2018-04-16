@@ -41,17 +41,17 @@ $ gcc -Wall -Wextra -Werror -o program_name source_file -L ./libft -lft
 
 #### `Flags`
 
-* #
+* \#
 * 0
-* -
-* +
+* \-
+* \+
 * space
 * '
 
 #### `Minimum Field Width`
 
-* # [given as any hardcoded number e.g. ft_printf("%4d\n", number);]
-* * [given as a variable e.g. ft_printf("%*d\n", 4, number); Note: if a negative number is provided, the absolute value will be used and a '-' flag will be added]
+* \# [given as any hardcoded number e.g. ft_printf("%4d\n", number);]
+* \* [given as a variable e.g. ft_printf("%*d\n", 4, number); Note: if a negative number is provided, the absolute value will be used and a '-' flag will be added]
 
 ### `Precision`
 
@@ -82,7 +82,7 @@ $ gcc -Wall -Wextra -Werror -o program_name source_file -L ./libft -lft
 * g, G
 * n
 
-### 'Color Management'
+### `Color Management`
 
 A color management functionality that is not supported by printf is added.
 
@@ -92,7 +92,7 @@ Example:
 ```
 ft_printf("This will be{red} red text {eoc}and now the text color is back to default.");
 
-(/color_management_output.PNG)
+!(/color_management_output.PNG)
 ``` 
 Supported colors are:
 
