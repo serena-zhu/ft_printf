@@ -87,8 +87,10 @@ This function includes a color management functionality that is different from p
 
 To use: specify colors in between {} and end color with {eoc}. If the closing bracket } is missing, the opening bracket { and the texts that follow will be printed to standard output. 
 
-Example main.c:
-```
+Example:
+```bash
+$ cat main.c
+
 #include "ft_printf.h"
 
 int	main(void)
@@ -96,6 +98,8 @@ int	main(void)
 	ft_printf("This will be{red} red text {eoc}and now the text color is back to default.\n");
 	return (0);
 }
+$ gcc -Wall -Wextra -Werror main.c -L ./ft_printf -lftprintf
+$ ./a.out
 ```
 ![color_output](/color_management_output.PNG)
 
