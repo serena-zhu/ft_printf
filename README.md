@@ -2,16 +2,13 @@
 
 Ft_printf is a variadic function that recreates much of printf's functionalities.
 
-[Language & Functions Used](#language_functions) | [Installation & Usage](#installation_usage) | [Functionalities](#functionalities) 
+[Language & Functions Used](#language_functions) | [Installation & Usage](#installation_usage) | [Format Specification Fields](#fields) 
 
 ## <a name="language_functions">Language & Functions Used</a>
 
-The ft_printf function is written in C, using only the following functions from the standard C libaries: 
+The ft_printf function is written in C, using only the following functions from the standard C libraries: 
 
 * write
-* malloc
-* free
-* exit
 * stdarg
 
 <a href="#top">↥ back to top</a>
@@ -33,11 +30,11 @@ $ make
 The Makefile will compile a static library called libftprintf.a, which can be compiled with your program source files as follows:
 
 ```bash
-$ gcc -Wall -Wextra -Werror -o program_name source_file -L ./libft -lft
+$ gcc -Wall -Wextra -Werror -o program_name source_file -L ./ft_printf -lftprintf
 ```
 <a href="#top">↥ back to top</a>
 
-## <a name="functionalities">Functionalities</a>
+## <a name="fields">Format Specification Fields</a>
 
 #### `Flags`
 
@@ -93,8 +90,10 @@ Example:
 ft_printf("This will be{red} red text {eoc}and now the text color is back to default.");
 ```
 ![color_output](/color_management_output.PNG)
- 
+
 Supported colors are:
 
 * black | red | green | yellow | blue | magenta | cyan | white | gray
 * light red | light green | light yellow | light blue | light magenta | light cyan
+
+<a href="#top">↥ back to top</a>
