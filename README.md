@@ -92,7 +92,7 @@ Example:
 ```
 ft_printf("This will be{red} red text {eoc}and now the text color is back to default.");
 
-!(/color_management_output.PNG)
+![color_output](/color_management_output.PNG)
 ``` 
 Supported colors are:
 
