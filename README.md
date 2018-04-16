@@ -50,7 +50,7 @@ $ gcc -Wall -Wextra -Werror -o program_name source_file -L ./ft_printf -lftprint
 * \# [given as any hardcoded number e.g. ft_printf("%4d\n", number);]
 * \* [given as a variable e.g. ft_printf("%*d\n", 4, number); Note: if a negative number is provided, the absolute value will be used and a '-' flag will be added]
 
-### `Precision`
+#### `Precision`
 
 * .# [given as any hardcoded number e.g. ft_printf("%.2f\n", number);]
 * .* [given as a variable e.g. ft_printf("%.*f\n", 2, number);]
@@ -79,7 +79,7 @@ $ gcc -Wall -Wextra -Werror -o program_name source_file -L ./ft_printf -lftprint
 * g, G
 * n
 
-### `Color Management`
+#### `Color Management`
 
 This function includes a color management functionality that is different from printf.
 
