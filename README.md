@@ -91,9 +91,9 @@ Specify colors in between {} and end color with {eoc}. If the closing bracket } 
 Example:
 ```
 ft_printf("This will be{red} red text {eoc}and now the text color is back to default.");
-
+```
 ![color_output](/color_management_output.PNG)
-``` 
+ 
 Supported colors are:
 
 * black | red | green | yellow | blue | magenta | cyan | white | gray
