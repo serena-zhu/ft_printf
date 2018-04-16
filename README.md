@@ -2,6 +2,8 @@
 
 Ft_printf is a variadic function that recreates much of printf's functionalities.
 
+## Contents
+
 [Language & Functions Used](#language_functions) | [Installation & Usage](#installation_usage) | [Format Specification Fields](#fields) 
 
 ## <a name="language_functions">Language & Functions Used</a>
