@@ -91,7 +91,7 @@ Example main.c:
 ```
 #include "ft_printf.h"
 
-int		main(void)
+int	main(void)
 {
 	ft_printf("This will be{red} red text {eoc}and now the text color is back to default.\n");
 	return (0);
