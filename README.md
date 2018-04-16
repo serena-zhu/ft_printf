@@ -81,9 +81,9 @@ $ gcc -Wall -Wextra -Werror -o program_name source_file -L ./ft_printf -lftprint
 
 ### `Color Management`
 
-A color management functionality that is not supported by printf is added.
+This function includes a color management functionality that is different from printf.
 
-Specify colors in between {} and end color with {eoc}. If the closing bracket } is missing, the opening bracket { and the texts that follow will be printed to standard output. 
+To use: specify colors in between {} and end color with {eoc}. If the closing bracket } is missing, the opening bracket { and the texts that follow will be printed to standard output. 
 
 Example:
 ```
